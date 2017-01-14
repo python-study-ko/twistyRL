@@ -25,3 +25,10 @@
 - 루빅스 큐브(3*3*3)
 - 리벤지 큐브(4*4*4)
 - 프로페서스 큐브(5*5*5)
+
+## 램덤한 큐브 만들기
+큐브에 값을 줄때는 랩덤한 값을 발생 시키도록 한다.
+WCA(World Cube Association)에서는 스크램블 프로그램을 이용하도록 [규정](https://www.worldcubeassociation.org/regulations/translations/korean/#5b5)하고 있다.
+그래서 이 게임 역시 해당 로직을 이용하여 랜덤한 값을 만들 예정이다.
+[스르램블 프로그램 사이트](https://ruwix.com/puzzle-scramble-generators/rubiks-cube-scrambler/)
+파이썬으로 작성된 코드는 [여기](https://github.com/Morphage/scrambler)를 참고!

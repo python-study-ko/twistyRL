@@ -28,30 +28,25 @@ class face :
 
     def check( self ) :
         """
-        해당 면이 가지고 있는 접수를 알려준다.
-        점수는 면에 있는 숫자 1~6중에서 가장 많이 중복된 갯수임
+        면의 상태정보를 갱신해 준다. 자료가 변경될때 이 메소드를 호출해 주면 자동으로 갱신한다.
+        self.done은 면의 완성여부를 self.point는 면의 점수를 알려준다.
+        점수는 면에 가장 많이 중복된 숫자의 갯수로 매겨진다.
         루빅스 큐브를 예로 들면 한 면에서 최대 9점이 나올수 있으며 루빅스 큐브 한개에서 최대 54점이 나온다.
         :return:
         """
-        # 숫자 갯수 확인용
-        self.numcount = dict( )
 
-        # 면 속에 있는 전체 숫자 확인
-        for row in self.matrix :
-            for col in row :
-                if col in self.numcount :
-                    # 이미 딕셔너리에 숫자가 존재할경우 카운팅만함
-                    self.numcount[ col ] += 1
-                else :
-                    # 딕셔너리에 존재 하지 않는 숫자면 셋에 추가후 카운팅
-                    self.numcount[ col ] = 1
+        num,count = np.unique(self.matrix,return_counts=True)
 
-        if len( self.numcount ) == 1 :
-            # 한면의 모든 숫자가 일치할경우 최대 점수 부여
-            return True, pow( self.size, 2 )
-        else :
-            # 값을 기준으로 정렬후 제일 높음 점수를 내보내기
-            return False, sorted( self.numcount.items( ), key=operator.itemgetter( 1 ), reversed=True )[ 0 ][ 1 ]
+        # 한면에 있는 숫자와 갯수
+        # ex) [[1,2,1],[2,3,1],[2,4,1]] 일 경우 -> self.status == [(1, 4), (2, 3), (3, 1), (4, 1)]
+        self.status = list(zip(num,count))
+        if len(self.status) == 1 : # 한면의 모든 숫자가 동일할 경우
+            self.done = True
+        else:
+            self.done = False
+
+        self.point = self.status[0][1]
+
 
     """
     액션 메소드
@@ -102,4 +97,4 @@ class face :
         :param data:
         :return:
         """
-        
+

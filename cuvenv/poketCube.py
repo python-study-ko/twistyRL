@@ -34,25 +34,24 @@ class face :
         :return:
         """
         # 숫자 갯수 확인용
-        self.numcount = dict()
+        self.numcount = dict( )
 
         # 면 속에 있는 전체 숫자 확인
         for row in self.matrix :
             for col in row :
-                if col in self.numcount:
+                if col in self.numcount :
                     # 이미 딕셔너리에 숫자가 존재할경우 카운팅만함
-                    self.numcount[col] += 1
-                else:
+                    self.numcount[ col ] += 1
+                else :
                     # 딕셔너리에 존재 하지 않는 숫자면 셋에 추가후 카운팅
-                    self.numcount[col] = 1
-
+                    self.numcount[ col ] = 1
 
         if len( self.numcount ) == 1 :
             # 한면의 모든 숫자가 일치할경우 최대 점수 부여
             return True, pow( self.size, 2 )
         else :
             # 값을 기준으로 정렬후 제일 높음 점수를 내보내기
-            return False,sorted(self.numcount.items(),key=operator.itemgetter(1),reversed=True)[0][1]
+            return False, sorted( self.numcount.items( ), key=operator.itemgetter( 1 ), reversed=True )[ 0 ][ 1 ]
 
     """
     액션 메소드
@@ -66,6 +65,36 @@ class face :
         왼쪽에서 r1은 [:,:1] 이것과 같은 의미와 위에처럼 표시한다.
     """
 
+    def row2col(self,row):
+        """
+        열을 행으로 바꿔준다.
+        ex)
+            [[1],[2],[3]] -> [1,2,3]
+        :param row:
+        :return: col
+        """
+        transrow = row
+        transcol = []
+        for num in transrow:
+            transcol.append(num[0])
+        return transcol
+
+
+    def col2row(self,col):
+        """
+        행을 열로 바꿔준다.
+        ex)
+            [1,2,3] -> [[1],[2],[3]]
+        :param col:
+        :return: row
+        """
+        transcol = col
+        transrow = []
+
+        for num in transcol:
+            transrow.append([num])
+        return transrow
+
     def change( self, index, data ) :
         """
         입력받은 인덱스의 값을 바꿔준다
@@ -73,3 +102,4 @@ class face :
         :param data:
         :return:
         """
+        

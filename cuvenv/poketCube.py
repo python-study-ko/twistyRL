@@ -19,12 +19,12 @@ class face :
         self.matrix = np.zeros( (self.size, self.size), dtype=np.uint8 )
 
     def set( self, mat ) :
-        self.mat = np.array( mat )
+        newmat = np.array( mat )
 
         # 크기를 확인하여 오류를 예방
-        assert self.mat.shape == (self.size, self.size)
+        assert newmat.shape == (self.size, self.size)
 
-        self.matrix = np.array( mat, dtype=np.uint8 )
+        self.matrix = np.array( newmat, dtype=np.uint8 )
 
     def check( self ) :
         """

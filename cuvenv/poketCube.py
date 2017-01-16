@@ -109,3 +109,15 @@ class face :
         :return:
         """
 
+        ## 인덱싱문구 해석
+
+        # 인덱싱 번호
+        indexcode = int( index[ 1 : ] )
+
+        if index[ 0 ] == "r" :
+            self.matrix[ :, indexcode ] = data
+        elif index[ 0 ] == "c" :
+            self.matrix[ indexcode, : ] = data
+
+        # 상태갱신
+        self.check( )

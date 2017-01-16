@@ -88,6 +88,19 @@ class face :
             transrow.append( [ num ] )
         return transrow
 
+    def get( self, index ) :
+        """
+        해당 인덱스의 값을 넘겨준다
+        :param index: 열,행과 인덱스 번호로 이뤄진 텍스트 ex) "r0", "c4"
+        :return:
+        """
+        indexcode = int( index[ 1 : ] )
+
+        if index[ 0 ] == "r" :
+            return self.matrix[ :, indexcode ]
+        elif index[ 0 ] == "c" :
+            return self.matrix[ indexcode, : ]
+
     def change( self, index, data ) :
         """
         입력받은 인덱스의 값을 바꿔준다

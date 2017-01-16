@@ -235,4 +235,6 @@ if __name__ == "__main__" :
     newface.change( 'c1', r0 )
     print( "변경후 면상태\n{matrix}".format( matrix=newface.matrix ) )
 
-    # todo: reset 메소드 테스트 코드 추가하기
+    # reset 메소드 테스트
+    newface.reset(3)
+    print("큐브 초기화\n{matrix}".format(matrix=newface.matrix))

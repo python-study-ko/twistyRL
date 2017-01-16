@@ -35,18 +35,17 @@ class face :
         :return:
         """
 
-        num,count = np.unique(self.matrix,return_counts=True)
+        num, count = np.unique( self.matrix, return_counts=True )
 
         # 한면에 있는 숫자와 갯수
         # ex) [[1,2,1],[2,3,1],[2,4,1]] 일 경우 -> self.status == [(1, 4), (2, 3), (3, 1), (4, 1)]
-        self.status = list(zip(num,count))
-        if len(self.status) == 1 : # 한면의 모든 숫자가 동일할 경우
+        self.status = list( zip( num, count ) )
+        if len( self.status ) == 1 :  # 한면의 모든 숫자가 동일할 경우
             self.done = True
-        else:
+        else :
             self.done = False
 
-        self.point = self.status[0][1]
-
+        self.point = self.status[ 0 ][ 1 ]
 
     """
     액션 메소드
@@ -60,7 +59,7 @@ class face :
         왼쪽에서 r1은 [:,:1] 이것과 같은 의미와 위에처럼 표시한다.
     """
 
-    def row2col(self,row):
+    def row2col( self, row ) :
         """
         열을 행으로 바꿔준다.
         ex)
@@ -69,13 +68,12 @@ class face :
         :return: col
         """
         transrow = row
-        transcol = []
-        for num in transrow:
-            transcol.append(num[0])
+        transcol = [ ]
+        for num in transrow :
+            transcol.append( num[ 0 ] )
         return transcol
 
-
-    def col2row(self,col):
+    def col2row( self, col ) :
         """
         행을 열로 바꿔준다.
         ex)
@@ -84,10 +82,10 @@ class face :
         :return: row
         """
         transcol = col
-        transrow = []
+        transrow = [ ]
 
-        for num in transcol:
-            transrow.append([num])
+        for num in transcol :
+            transrow.append( [ num ] )
         return transrow
 
     def change( self, index, data ) :

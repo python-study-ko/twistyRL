@@ -122,3 +122,26 @@ class face :
 
         # 상태갱신
         self.check( )
+
+
+if __name__ == "__main__" :
+    ## 테스트 코드
+
+    # face 객체 테스트
+    sample1 = [ [ 1, 6, 4 ], [ 2, 4, 1 ], [ 4, 5, 1 ] ]
+    sample2 = [ [ 1, 1, 1 ], [ 1, 1, 1 ], [ 1, 1, 1 ] ]
+    n = 3
+    newface = face( 3 )
+
+    # n*n의 면 생성
+    print( "{n}*{n} 면 생성\n면 상태:\n{matrix}".format( n=n, matrix=newface.matrix ) )
+
+    # 면에 값을 부여
+    newface.set( sample1 )
+    print( "\n값 부여\n면 상태:\n{matrix}\n완셩여부: {done} 면 점수: {point}".format( matrix=newface.matrix, done=newface.done,
+                                                                         point=newface.point ) )
+
+    # 면이 완성 됬을 경우
+    newface.set( sample2 )
+    print( "\n값 부여\n면 상태:\n{matrix}\n완셩여부: {done} 면 점수: {point}".format( matrix=newface.matrix, done=newface.done,
+                                                                         point=newface.point ) )

@@ -147,6 +147,7 @@ if __name__ == "__main__" :
 
     # face 객체 테스트
     sample1 = [ [ 1, 6, 4 ], [ 2, 4, 1 ], [ 4, 5, 1 ] ]
+    sample1np = np.array( sample1,dtype=np.uint8 )
     sample2 = [ [ 1, 1, 1 ], [ 1, 1, 1 ], [ 1, 1, 1 ] ]
     n = 3
     newface = face( 3 )
@@ -154,11 +155,14 @@ if __name__ == "__main__" :
     # n*n의 면 생성
     print( "{n}*{n} 면 생성\n면 상태:\n{matrix}".format( n=n, matrix=newface.matrix ) )
 
-    # 면에 값을 부여
+    print( "\n면에 리스트 타입의 값을 부여" )
     newface.set( sample1 )
-    print( "\n값 부여\n면 상태:\n{matrix}\n완셩여부: {done} 면 점수: {point}".format( matrix=newface.matrix, done=newface.done,
+    print( "값 부여\n면 상태:\n{matrix}\n완셩여부: {done} 면 점수: {point}".format( matrix=newface.matrix, done=newface.done,
                                                                          point=newface.point ) )
-
+    print( "\nndarray 타입의 값을 부여" )
+    newface.set( sample1np )
+    print( "값 부여\n면 상태:\n{matrix}\n완셩여부: {done} 면 점수: {point}".format( matrix=newface.matrix, done=newface.done,
+                                                                         point=newface.point ) )
     # 면이 완성 됬을 경우
     newface.set( sample2 )
     print( "\n값 부여\n면 상태:\n{matrix}\n완셩여부: {done} 면 점수: {point}".format( matrix=newface.matrix, done=newface.done,

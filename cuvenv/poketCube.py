@@ -15,16 +15,33 @@ class face :
         :param n:
         :return:
         """
+        dtype = np.dtype("uint8")
         self.size = n
-        self.matrix = np.zeros( (self.size, self.size), dtype=np.uint8 )
+        self.matrix = np.zeros( (self.size, self.size), dtype=dtype )
 
     def set( self, mat ) :
-        newmat = np.array( mat )
+        """
+        면의 초기값을 mat로 바꿔준다
+        :param mat: numpay.array 혹은 차원이 동일한 리스트로 만든 행렬
+        :return:
+        """
+        newmat = mat
 
-        # 크기를 확인하여 오류를 예방
-        assert newmat.shape == (self.size, self.size)
+        # mat이 넘파이 array 형식 일 경우
+        if type(newmat) == type(self.matrix):
+            # mat의 자료형 비교
+            if not newmat.dtype == self.matrix.dtype:
+                # 자료형이 맞지 않을 경우 face객체의 행렬과 자료형을 동일하게 변경
+                newmat.dtype = self.matrix.dtype
 
-        self.matrix = np.array( newmat, dtype=np.uint8 )
+        # 리스트된 행렬일 경우
+        elif type(newmat) == type(list()):
+            newmat = np.array(newmat, dtype=self.matrix.dtype)
+
+        # mat의 shape 비교
+        assert newmat.shape == self.matrix.shape
+
+        self.matrix = newmat
         self.check( )
 
     def check( self ) :

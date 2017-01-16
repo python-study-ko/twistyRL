@@ -25,6 +25,7 @@ class face :
         assert newmat.shape == (self.size, self.size)
 
         self.matrix = np.array( newmat, dtype=np.uint8 )
+        self.check( )
 
     def check( self ) :
         """

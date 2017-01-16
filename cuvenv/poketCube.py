@@ -156,15 +156,19 @@ class Cube :
 
     def make( self, n ) :
         """
-        큐브를 생성하고 면의 값을 초기화 시킨다.
-        :param n:
+        큐브는 딕셔너리(ey = 면의 인덱스 번호, value = 면 인스턴스)로 구성되있다.
+        면에 인덱스 번호를 부여하는 방식은 READMD.md파일의 큐브 배치도를 참고 바람.
+        모든 행동은 1번 면이 가장 앞에 있는 상태를 기준으로 이뤄진다.
+        :param n: 생성할 큐브 차원
         :return:
         """
         size = n
 
         self.cube = { }
         for i in range( 1, 7 ) :
+            # 면을 생성한다.
             self.cube[ i ] = face(size)
+            # 면의 값을 초기화 시킨다 ex) 3번 면의 값은 모두 3으로 초기화
             self.cube[i].reset(i)
 
 

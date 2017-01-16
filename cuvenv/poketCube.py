@@ -1,6 +1,7 @@
 # n*n*n 포켓 큐브
 import numpy as np
 
+
 class face :
     """
     큐브의 면을 표현 하는 객체
@@ -17,14 +18,14 @@ class face :
         self.size = n
         self.matrix = np.zeros( (self.size, self.size), dtype=dtype )
 
-    def reset(self, num):
+    def reset( self, num ) :
         """
         면의 모든 숫자를 num으로 바꿔준다
         큐브 초기 생성시 면 값을 리셋 시키기 위한 함수
         :param num:
         :return:
         """
-        self.matrix[:,:] = num
+        self.matrix[ :, : ] = num
 
     def set( self, mat ) :
         """
@@ -167,10 +168,9 @@ class Cube :
         self.cube = { }
         for i in range( 1, 7 ) :
             # 면을 생성한다.
-            self.cube[ i ] = face(size)
+            self.cube[ i ] = face( size )
             # 면의 값을 초기화 시킨다 ex) 3번 면의 값은 모두 3으로 초기화
-            self.cube[i].reset(i)
-
+            self.cube[ i ].reset( i )
 
 
 if __name__ == "__main__" :
@@ -236,6 +236,3 @@ if __name__ == "__main__" :
     print( "변경후 면상태\n{matrix}".format( matrix=newface.matrix ) )
 
     # todo: reset 메소드 테스트 코드 추가하기
-
-
-

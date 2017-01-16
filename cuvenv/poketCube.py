@@ -167,3 +167,4 @@ if __name__ == "__main__" :
     newface.set( sample2 )
     print( "\n값 부여\n면 상태:\n{matrix}\n완셩여부: {done} 면 점수: {point}".format( matrix=newface.matrix, done=newface.done,
                                                                          point=newface.point ) )
+    # change 메소드 테스트

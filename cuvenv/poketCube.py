@@ -184,3 +184,22 @@ if __name__ == "__main__" :
     print( "{index} : {result}".format( index=index3, result=newface.get( index3 ) ) )
 
     # change 메소드 테스트
+    """
+    c1의 값을 r0의 값으로 변경함
+
+    변경전 면상태
+    [[1 6 4]
+     [2 4 1]
+     [4 5 1]]
+
+    r0 == [[1 2 4]]
+
+    변경후 면상태
+    [[1 6 4]
+     [1 2 4]
+     [4 5 1]]
+    """
+    print( "변경전 면상태\n{matrix}".format( matrix=newface.matrix ) )
+    r0 = newface.get( "r0" )
+    newface.change( 'c1', r0 )
+    print( "변경후 면상태\n{matrix}".format( matrix=newface.matrix ) )

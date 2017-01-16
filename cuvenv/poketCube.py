@@ -1,4 +1,4 @@
-# 2*2*2 포켓 큐브
+# n*n*n 포켓 큐브
 import numpy as np
 import operator
 

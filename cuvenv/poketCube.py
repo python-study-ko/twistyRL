@@ -1,7 +1,5 @@
 # n*n*n 포켓 큐브
 import numpy as np
-import operator
-
 
 class face :
     """
@@ -152,7 +150,7 @@ if __name__ == "__main__" :
 
     # 면의 길이
     n = 3
-    
+
     # n*n의 면 생성
     newface = face( n )
 
@@ -169,7 +167,7 @@ if __name__ == "__main__" :
     # 면이 완성 됬을 경우
     newface.set( sample2 )
     print( "\n면 상태:\n{matrix}\n완셩여부: {done} 면 점수: {point}".format( matrix=newface.matrix, done=newface.done,
-                                                                         point=newface.point ) )
+                                                                   point=newface.point ) )
     # get 메소드 테스트
     newface.set( sample1np )
     index1 = "r0"

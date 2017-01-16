@@ -17,6 +17,15 @@ class face :
         self.size = n
         self.matrix = np.zeros( (self.size, self.size), dtype=dtype )
 
+    def reset(self, num):
+        """
+        면의 모든 숫자를 num으로 바꿔준다
+        큐브 초기 생성시 면 값을 리셋 시키기 위한 함수
+        :param num:
+        :return:
+        """
+        self.matrix[:,:] = num
+
     def set( self, mat ) :
         """
         면의 초기값을 mat로 바꿔준다
@@ -140,6 +149,26 @@ class face :
         self.check( )
 
 
+class Cube :
+    """
+    큐브 생성 관리에 유용한 메소드 모음
+    """
+
+    def make( self, n ) :
+        """
+        큐브를 생성하고 면의 값을 초기화 시킨다.
+        :param n:
+        :return:
+        """
+        size = n
+
+        self.cube = { }
+        for i in range( 1, 7 ) :
+            self.cube[ i ] = face(size)
+            self.cube[i].reset(i)
+
+
+
 if __name__ == "__main__" :
     ## 테스트 코드
 
@@ -201,3 +230,8 @@ if __name__ == "__main__" :
     r0 = newface.get( "r0" )
     newface.change( 'c1', r0 )
     print( "변경후 면상태\n{matrix}".format( matrix=newface.matrix ) )
+
+    # todo: reset 메소드 테스트 코드 추가하기
+
+
+

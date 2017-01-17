@@ -15,6 +15,10 @@ class poketCube( Cube ) :
         self.point = None
         self.count = None
 
+        # todo:랜덤한 값을 대입
+
+        self.check()
+
     def __repr__( self ) :
         """
         아래와 같은 구조르 출력됨

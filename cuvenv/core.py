@@ -32,6 +32,7 @@ class face :
         :return:
         """
         self.matrix[ :, : ] = num
+        self.check()
 
     def set( self, mat ) :
         """

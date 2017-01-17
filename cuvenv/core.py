@@ -4,6 +4,7 @@ import numpy as np
 큐브 게임을 위한 핵식 클래스 모음
 """
 
+
 class face :
     """
     큐브의 면을 표현 하는 객체
@@ -32,7 +33,7 @@ class face :
         :return:
         """
         self.matrix[ :, : ] = num
-        self.check()
+        self.check( )
 
     def set( self, mat ) :
         """
@@ -180,8 +181,9 @@ class Cube :
     """
     큐브 생성 관리에 유용한 메소드 모음
     """
+
     def __init__( self ) :
-        self.history = []
+        self.history = [ ]
         self.done = None
         self.point = None
         self.count = None
@@ -209,18 +211,18 @@ class Cube :
         :return:
         """
         # 큐브 완셩 여부 확인
-        done = [self.cube[x].done for x in self.cube]
-        if False in done:
+        done = [ self.cube[ x ].done for x in self.cube ]
+        if False in done :
             self.done = False
-        else:
+        else :
             self.done = True
 
         # 점수 갱신
-        points = [self.cube[x].point for x in self.cube]
-        self.point = sum(points)
+        points = [ self.cube[ x ].point for x in self.cube ]
+        self.point = sum( points )
 
         # 회전 횟수
-        self.count = len(self.history)
+        self.count = len( self.history )
 
         # todo: 메소드 완성하기
 

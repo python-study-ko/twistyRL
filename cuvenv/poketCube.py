@@ -128,9 +128,9 @@ class face :
         indexcode = int( index[ 1 : ] )
 
         if index[ 0 ] == "r" :
-            return np.copy(self.matrix[ :, indexcode ])
+            return np.copy( self.matrix[ :, indexcode ] )
         elif index[ 0 ] == "c" :
-            return np.copy(self.matrix[ indexcode, : ])
+            return np.copy( self.matrix[ indexcode, : ] )
 
     def change( self, index, data ) :
         """
@@ -151,6 +151,26 @@ class face :
             self.matrix[ indexcode, : ] = data
 
         # 상태갱신
+        self.check( )
+
+    def turn( self, Direction="r" ) :
+        """
+        면을 오른쪽 혹은 왼쪽으로 회전한다.
+        기본은 오른쪽으로 회전
+        :param count: (r :오른쪽으로 회전, l: 왼쪽으로 회전)
+        :return:
+        """
+        # 방향 값 확인
+        direc = Direction
+        assert direc in ('r', 'l')
+
+        if direc == 'r' :
+            self.matrix = np.fliplr( self.matrix )
+        elif direc == 'l' :
+            for _ in range( 3 ) :
+                self.matrix = np.fliplr( self.matrix )
+
+        # 상태 갱신
         self.check( )
 
 
@@ -176,11 +196,13 @@ class Cube :
             # 면의 값을 초기화 시킨다 ex) 3번 면의 값은 모두 3으로 초기화
             self.cube[ i ].reset( i )
 
-    def check(self):
+    def check( self ) :
         """
         면 상태 체크 메소드, 큐브가 변경되는 시점마다 호출하여 완셩여부와 점수를 확인한다.
         :return:
         """
+        # todo: 메소드 완성하기
+
 
 class poketCube( Cube ) :
     """
@@ -190,8 +212,6 @@ class poketCube( Cube ) :
     def __init__( self ) :
         self.make( 2 )
 
-
-
     def copy( self, faces ) :
         """
         딕셔너리에 적혀 있는대로 면을 복사해 준다
@@ -199,11 +219,11 @@ class poketCube( Cube ) :
         :return:
         """
         dic = faces
-        assert type(dic) == type(dict())
+        assert type( dic ) == type( dict( ) )
 
         for i in dic :
             # 면에서 원하는 인덱스 값을 복사하여 알려준다
-            dic[i] = self.cube[i].get(dic[i])
+            dic[ i ] = self.cube[ i ].get( dic[ i ] )
         return dic
 
     # todo: np.flip(mat,0) 와 np.fliplr(mat)을 이용하여
@@ -215,12 +235,20 @@ class poketCube( Cube ) :
         :return:
         """
         turn = act
-        # 가능한 명령어 셋
-        turnset = ('F', 'F`', 'R', 'R`', 'U', 'U`', 'B', 'B`', 'L', 'L`', 'D', 'D`')
+        # 가능한 명령어 셋, 값은 회전하는 면의 인덱스
+        turnset = {
+            'F' : 1, 'F`' : 1, 'R' : 4, 'R`' : 4, 'U' : 2, 'U`' : 2, 'B' : 6, 'B`' : 6, 'L' : 3, 'L`' : 3, 'D' : 5,
+            'D`' : 5
+        }
         # 명령어셋 확인
         assert turn in turnset
 
         if turn == 'F' :
+            # 면 회전
+            turnface = turnset[ turn ]
+            self.cube[ turnface ].turn( 'r' )
+            # 면에 값 대입
+
             pass
         elif turn == 'F`' :
             pass
@@ -246,95 +274,4 @@ class poketCube( Cube ) :
             pass
 
 
-def testpoket( ) :
-    """
-    포켓큐브 회전 개발용 테스트 함수
-    :return:
-    """
 
-    def reset( cube ) :
-        for i in range( 1, 7 ) :
-            cube.cube[ i ].set( sampleCube[ i ] )
-        print( "포켓큐브 리셋\n", cube.cube )
-        return cube
-
-    sampleCube = {
-        1 : [ [ 11, 12 ], [ 13, 14 ] ], 2 : [ [ 21, 22 ], [ 23, 24 ] ], 3 : [ [ 31, 32 ], [ 33, 34 ] ],
-        4 : [ [ 41, 42 ], [ 43, 44 ] ], 5 : [ [ 51, 52 ], [ 53, 54 ] ], 6 : [ [ 61, 62 ], [ 63, 64 ] ]
-        }
-    poket = poketCube( )
-    poket = reset( poket )
-
-
-if __name__ == "__main__" :
-    ## 테스트 코드
-
-    # face 객체 테스트
-    sample1 = [ [ 1, 6, 4 ], [ 2, 4, 1 ], [ 4, 5, 1 ] ]
-    sample1np = np.array( sample1, dtype=np.uint8 )
-    sample2 = [ [ 1, 1, 1 ], [ 1, 1, 1 ], [ 1, 1, 1 ] ]
-
-    # 면의 길이
-    n = 3
-
-    # n*n의 면 생성
-    newface = face( n )
-
-    print( "{n}*{n} 면 생성\n면 상태:\n{matrix}".format( n=n, matrix=newface.matrix ) )
-
-    print( "\n면에 리스트 타입의 값을 부여" )
-    newface.set( sample1 )
-    print( "값 부여\n면 상태:\n{matrix}\n완셩여부: {done} 면 점수: {point}".format( matrix=newface.matrix, done=newface.done,
-                                                                       point=newface.point ) )
-    print( "\nndarray 타입의 값을 부여" )
-    newface.set( sample1np )
-    print( "값 부여\n면 상태:\n{matrix}\n완셩여부: {done} 면 점수: {point}".format( matrix=newface.matrix, done=newface.done,
-                                                                       point=newface.point ) )
-    # 면이 완성 됬을 경우
-    newface.set( sample2 )
-    print( "\n면 상태:\n{matrix}\n완셩여부: {done} 면 점수: {point}".format( matrix=newface.matrix, done=newface.done,
-                                                                   point=newface.point ) )
-    # get 메소드 테스트
-    newface.set( sample1np )
-    index1 = "r0"
-    index2 = "c1"
-    index3 = "r2"
-
-    print( "\n면 상태:\n{matrix}\n완셩여부: {done} 면 점수: {point}".format( matrix=newface.matrix, done=newface.done,
-                                                                   point=newface.point ) )
-
-    print( "{index} : {result}".format( index=index1, result=newface.get( index1 ) ) )
-    print( "{index} : {result}".format( index=index2, result=newface.get( index2 ) ) )
-    print( "{index} : {result}".format( index=index3, result=newface.get( index3 ) ) )
-
-    # change 메소드 테스트
-    """
-    c1의 값을 r0의 값으로 변경함
-
-    변경전 면상태
-    [[1 6 4]
-     [2 4 1]
-     [4 5 1]]
-
-    r0 == [[1 2 4]]
-
-    변경후 면상태
-    [[1 6 4]
-     [1 2 4]
-     [4 5 1]]
-    """
-    print( "변경전 면상태\n{matrix}".format( matrix=newface.matrix ) )
-    r0 = newface.get( "r0" )
-    newface.change( 'c1', r0 )
-    print( "변경후 면상태\n{matrix}".format( matrix=newface.matrix ) )
-
-    # reset 메소드 테스트
-    newface.reset( 3 )
-    print( "면 초기화\n{matrix}".format( matrix=newface.matrix ) )
-
-    ## 큐브 클래스 테스트
-    # 포켓큐브 생성
-    poket = poketCube( )
-    print( "큐브 생성\n", poket.cube )
-
-    testpoket( )

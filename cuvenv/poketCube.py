@@ -18,6 +18,10 @@ class face :
         self.size = n
         self.matrix = np.zeros( (self.size, self.size), dtype=dtype )
 
+    def __repr__( self ) :
+
+        return "\n" + str( self.matrix ) + "\n"
+
     def reset( self, num ) :
         """
         면의 모든 숫자를 num으로 바꿔준다

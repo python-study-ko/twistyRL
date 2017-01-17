@@ -12,9 +12,9 @@ def testpoket( ) :
         4 : [ [ 41, 42 ], [ 43, 44 ] ], 5 : [ [ 51, 52 ], [ 53, 54 ] ], 6 : [ [ 61, 62 ], [ 63, 64 ] ]
     }
 
-    def reset( cube ) :
+    def reset( cube,mat=sampleCube ) :
         for i in range( 1, 7 ) :
-            cube.cube[ i ].set( sampleCube[ i ] )
+            cube.cube[ i ].set( mat[ i ] )
             cube.history = []
         return cube
 
@@ -27,6 +27,21 @@ def testpoket( ) :
         poket = reset(poket)
         poket.action(act)
         print("{act} 실행:\n{cube}".format(act=act,cube=poket))
+
+    # 실제로 퍼즐이 맞춰지는지 테스트
+    print("============\n실제 테스트\n섞어 놓은 큐브와 해답을 이용하여 제대로 맞춰지는지 검증")
+    Q = {
+        1 : [ [ 3, 2 ], [ 6, 3 ] ], 2 : [ [ 1,1  ], [ 6, 3 ] ], 3 : [ [ 5, 5 ], [ 1, 2 ] ],
+        4 : [ [ 6, 5 ], [ 2, 6 ] ], 5 : [ [ 4, 1 ], [ 2, 4 ] ], 6 : [ [ 4, 3 ], [ 5, 4 ] ]
+    }
+    solve = ['F`','F`','U`','U`','F`','U','R','U`','F`','F`','U`','U`','F`','F`']
+
+    poket = poketCube()
+    poket = reset(poket,Q)
+
+    for act in solve:
+        poket.action(act)
+        print(poket)
 
 
 if __name__ == "__main__" :

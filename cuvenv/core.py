@@ -179,6 +179,11 @@ class Cube :
     """
     큐브 생성 관리에 유용한 메소드 모음
     """
+    def __init__( self ) :
+        self.history = []
+        self.done = None
+        self.point = None
+        self.count = None
 
     def make( self, n ) :
         """
@@ -202,6 +207,20 @@ class Cube :
         면 상태 체크 메소드, 큐브가 변경되는 시점마다 호출하여 완셩여부와 점수를 확인한다.
         :return:
         """
+        # 큐브 완셩 여부 확인
+        done = [self.cube[x].done for x in self.cube]
+        if False in done:
+            self.done = False
+        else:
+            self.done = True
+
+        # 점수 갱신
+        points = [self.cube[x].point for x in self.cube]
+        self.point = sum(points)
+
+        # 회전 횟수
+        self.count = len(self.history)
+
         # todo: 메소드 완성하기
 
     def __repr__( self ) :

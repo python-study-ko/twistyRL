@@ -349,3 +349,8 @@ class poketCube( Cube ) :
 
             # 자료 변경
             self.cube[ new[ 'num' ] ].change( new[ 'index' ], data )
+
+        # 회전 기록
+        self.history.append(action)
+        # 상태 갱신
+        self.check()

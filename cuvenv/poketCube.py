@@ -85,7 +85,8 @@ class poketCube( Cube ) :
             dic[ i ] = self.cube[ i ].get( dic[ i ] )
         return dic
 
-    # todo: np.flip(mat,0) 와 np.fliplr(mat)을 이용하여
+    # todo: 게임 상태를 알려주는 메소드 추가하기, 해당 메소드 실행시 튜블에 완성여부,점수,개별면 상태를 담아 반환한다
+    # todo: action 메소드 실행시 큐브상태를 반환하도록 변경
 
     def action( self, action ) :
         """

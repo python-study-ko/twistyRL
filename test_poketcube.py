@@ -15,7 +15,7 @@ def testpoket( ) :
     def reset( cube ) :
         for i in range( 1, 7 ) :
             cube.cube[ i ].set( sampleCube[ i ] )
-        # print( "포켓큐브 리셋\n", cube.cube )
+            cube.history = []
         return cube
 
     # 회전 테스트
@@ -27,13 +27,13 @@ def testpoket( ) :
     for act in turnset:
         poket = reset(poket)
         poket.action(act)
-        print("{act} 실행:\n{cube}".format(act=act,cube=poket.cube))
+        print("{act} 실행:\n{cube}".format(act=act,cube=poket))
 
 
 if __name__ == "__main__" :
     ## 테스트 코드
     # 포켓큐브 생성
     poket = poketCube( )
-    print( "큐브 생성\n", poket.cube )
+    print( "큐브 생성\n", poket )
 
     testpoket( )

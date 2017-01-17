@@ -10,6 +10,56 @@ class poketCube( Cube ) :
 
     def __init__( self ) :
         self.make( 2 )
+        self.history = []
+        self.done = None
+        self.point = None
+        self.count = None
+
+    def __repr__( self ) :
+        """
+        아래와 같은 구조르 출력됨
+        ex) 루빅스큐브 출력시
+        |================================|
+        |  포켓 큐브 게임 2*2*2             |
+        |       -------  완료 여부 : False |
+        |       | 1 2 |  점수 : 00        |
+        |       | 1 2 |  회전횟수 : 00     |
+        | -------------------------      |
+        | | 1 2 | 1 2 | 1 2 | 1 2 |      |
+        | | 1 2 | 1 2 | 1 2 | 1 2 |      |
+        | -------------------------      |
+        |       | 1 2 |                  |
+        |       | 1 2 |                  |
+        |       -------                  |
+        |================================|
+        기록 :
+
+
+        :return:
+        """
+        f1,f2,f3,f4,f5,f6 = self.cube[1].matrix,self.cube[2].matrix,self.cube[3].matrix,self.cube[4].matrix,self.cube[5].matrix,self.cube[6].matrix
+
+        # 큐브 사이즈에 맞게 자동 조절
+        # 단일 객체 길이 측정
+        sample = len('{}'.format(f1[0][0]))
+        nullArea = ' '*(5+sample*2)
+        stick1Area = '-'*(5+sample*2)
+        stick2Area = ' '+'-' * (17 + sample * 8)+'\n'
+        str =  '=======================================\n'
+        str += '  포켓 큐브 게임 2*2*2\n\n'
+        str += '{}{}    완료 여부 : {done}\n'.format(nullArea,stick1Area,done=self.done)
+        str += '{}| {} {} |    점수      : {point}\n'.format(nullArea,f2[0][0],f2[0][1],point=self.point)
+        str += '{}| {} {} |    회전횟수  : {count}\n'.format(nullArea,f2[1][0],f2[1][1],count=self.count)
+        str += stick2Area
+        str += ' | {} {} | {} {} | {} {} | {} {} |\n'.format(f3[0][0],f3[0][1],f1[0][0],f1[0][1],f4[0][0],f4[0][1],f6[0][0],f6[0][1])
+        str += ' | {} {} | {} {} | {} {} | {} {} |\n'.format(f3[1][0],f3[1][1],f1[1][0],f1[1][1],f4[1][0],f4[1][1],f6[1][0],f6[1][1])
+        str += stick2Area
+        str += '{}| {} {} |\n'.format(nullArea,f5[0][0],f5[0][1])
+        str += '{}| {} {} |\n'.format(nullArea,f5[1][0],f5[1][1])
+        str += '{}{}\n'.format(nullArea,stick1Area)
+        str += ' 기록 : {}\n'.format(self.history)
+        str += '====================================='
+        return str
 
     def copy( self, faces ) :
         """

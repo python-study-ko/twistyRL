@@ -66,30 +66,210 @@ class poketCube( Cube ) :
                     5 : 'c0'
                 },
                 'change' : {
-                    2 : {
-                        'num' : 4,
-                        'index' : 'r0',
-                        'flip' : False,
-                    },
-                    3 : {
-                        'num' : 2,
-                        'index' : 'c1',
-                        'flip' : True,
-                    },
-                    4 : {
-                        'num' : 5,
-                        'index' : 'c0',
-                        'flip' : True,
-                    },
-                    5 : {
-                        'num' : 3,
-                        'index' : 'r1',
-                        'flip' : False,
-                    },
+                    2 : { 'num' : 4, 'index' : 'r0', 'flip' : False },
+                    3 : { 'num' : 2, 'index' : 'c1', 'flip' : True },
+                    4 : { 'num' : 5, 'index' : 'c0', 'flip' : True },
+                    5 : { 'num' : 3, 'index' : 'r1', 'flip' : False },
                 }
             },
-            'F`' : 1, 'R' : 4, 'R`' : 4, 'U' : 2, 'U`' : 2, 'B' : 6, 'B`' : 6, 'L' : 3, 'L`' : 3, 'D' : 5,
-            'D`' : 5
+            'F`' : {
+                'rotate' : {
+                    'num' : 1,
+                    'direction' : 'r',
+                },
+                'old' : {
+                    2 : 'c1',
+                    3 : 'r1',
+                    4 : 'r0',
+                    5 : 'c0'
+                },
+                'change' : {
+                    2 : { 'num' : 4, 'index' : 'r0', 'flip' : False },
+                    3 : { 'num' : 2, 'index' : 'c1', 'flip' : True },
+                    4 : { 'num' : 5, 'index' : 'c0', 'flip' : True },
+                    5 : { 'num' : 3, 'index' : 'r1', 'flip' : False },
+                }
+            },
+            'R' : {
+                'rotate' : {
+                    'num' : 4,
+                    'direction' : 'r',
+                },
+                'old' : {
+                    1 : 'c1',
+                    2 : 'r1',
+                    5 : 'r0',
+                    6 : 'c0'
+                },
+                'change' : {
+                    1 : { 'num' : 4, 'index' : 'r0', 'flip' : False },
+                    2 : { 'num' : 2, 'index' : 'c1', 'flip' : True },
+                    5 : { 'num' : 5, 'index' : 'c0', 'flip' : True },
+                    6 : { 'num' : 3, 'index' : 'r1', 'flip' : False },
+                }
+            },
+            'R`' : {
+                'rotate' : {
+                    'num' : 4,
+                    'direction' : 'r',
+                },
+                'old' : {
+                    1 : 'c1',
+                    2 : 'r1',
+                    5 : 'r0',
+                    6 : 'c0'
+                },
+                'change' : {
+                    1 : { 'num' : 4, 'index' : 'r0', 'flip' : False },
+                    2 : { 'num' : 2, 'index' : 'c1', 'flip' : True },
+                    5 : { 'num' : 5, 'index' : 'c0', 'flip' : True },
+                    6 : { 'num' : 3, 'index' : 'r1', 'flip' : False },
+                }
+            },
+            'U' : {
+                'rotate' : {
+                    'num' : 2,
+                    'direction' : 'r',
+                },
+                'old' : {
+                    1 : 'c1',
+                    3 : 'r1',
+                    4 : 'r0',
+                    6 : 'c0'
+                },
+                'change' : {
+                    1 : { 'num' : 4, 'index' : 'r0', 'flip' : False },
+                    3 : { 'num' : 2, 'index' : 'c1', 'flip' : True },
+                    4 : { 'num' : 5, 'index' : 'c0', 'flip' : True },
+                    6 : { 'num' : 3, 'index' : 'r1', 'flip' : False },
+                }
+            },
+            'U`' : {
+                'rotate' : {
+                    'num' : 2,
+                    'direction' : 'r',
+                },
+                'old' : {
+                    1 : 'c1',
+                    3 : 'r1',
+                    4 : 'r0',
+                    6 : 'c0'
+                },
+                'change' : {
+                    1 : { 'num' : 4, 'index' : 'r0', 'flip' : False },
+                    3 : { 'num' : 2, 'index' : 'c1', 'flip' : True },
+                    4 : { 'num' : 5, 'index' : 'c0', 'flip' : True },
+                    6 : { 'num' : 3, 'index' : 'r1', 'flip' : False },
+                }
+            },
+            'B' : {
+                'rotate' : {
+                    'num' : 6,
+                    'direction' : 'r',
+                },
+                'old' : {
+                    2 : 'c1',
+                    3 : 'r1',
+                    4 : 'r0',
+                    5 : 'c0'
+                },
+                'change' : {
+                    2 : { 'num' : 4, 'index' : 'r0', 'flip' : False },
+                    3 : { 'num' : 2, 'index' : 'c1', 'flip' : True },
+                    4 : { 'num' : 5, 'index' : 'c0', 'flip' : True },
+                    5 : { 'num' : 3, 'index' : 'r1', 'flip' : False },
+                }
+            },
+            'B`' : {
+                'rotate' : {
+                    'num' : 6,
+                    'direction' : 'r',
+                },
+                'old' : {
+                    2 : 'c1',
+                    3 : 'r1',
+                    4 : 'r0',
+                    5 : 'c0'
+                },
+                'change' : {
+                    2 : { 'num' : 4, 'index' : 'r0', 'flip' : False },
+                    3 : { 'num' : 2, 'index' : 'c1', 'flip' : True },
+                    4 : { 'num' : 5, 'index' : 'c0', 'flip' : True },
+                    5 : { 'num' : 3, 'index' : 'r1', 'flip' : False },
+                }
+            },
+            'L' : {
+                'rotate' : {
+                    'num' : 3,
+                    'direction' : 'r',
+                },
+                'old' : {
+                    1 : 'c1',
+                    2 : 'r1',
+                    5 : 'r0',
+                    6 : 'c0'
+                },
+                'change' : {
+                    1 : { 'num' : 4, 'index' : 'r0', 'flip' : False },
+                    2 : { 'num' : 2, 'index' : 'c1', 'flip' : True },
+                    5 : { 'num' : 5, 'index' : 'c0', 'flip' : True },
+                    6 : { 'num' : 3, 'index' : 'r1', 'flip' : False },
+                }
+            },
+            'L`' : {
+                'rotate' : {
+                    'num' : 3,
+                    'direction' : 'r',
+                },
+                'old' : {
+                    1 : 'c1',
+                    2 : 'r1',
+                    5 : 'r0',
+                    6 : 'c0'
+                },
+                'change' : {
+                    1 : { 'num' : 4, 'index' : 'r0', 'flip' : False },
+                    2 : { 'num' : 2, 'index' : 'c1', 'flip' : True },
+                    5 : { 'num' : 5, 'index' : 'c0', 'flip' : True },
+                    6 : { 'num' : 3, 'index' : 'r1', 'flip' : False },
+                }
+            },
+            'D' : {
+                'rotate' : {
+                    'num' : 5,
+                    'direction' : 'r',
+                },
+                'old' : {
+                    1 : 'c1',
+                    3 : 'r1',
+                    4 : 'r0',
+                    6 : 'c0'
+                },
+                'change' : {
+                    1 : { 'num' : 4, 'index' : 'r0', 'flip' : False },
+                    3 : { 'num' : 2, 'index' : 'c1', 'flip' : True },
+                    4 : { 'num' : 5, 'index' : 'c0', 'flip' : True },
+                    6 : { 'num' : 3, 'index' : 'r1', 'flip' : False },
+                }
+            },
+            'D`' : {
+                'rotate' : {
+                    'num' : 5,
+                    'direction' : 'r',
+                },
+                'old' : {
+                    1 : 'c1',
+                    3 : 'r1',
+                    4 : 'r0',
+                    6 : 'c0'
+                },
+                'change' : {
+                    1 : { 'num' : 4, 'index' : 'r0', 'flip' : False },
+                    3 : { 'num' : 2, 'index' : 'c1', 'flip' : True },
+                    4 : { 'num' : 5, 'index' : 'c0', 'flip' : True },
+                    6 : { 'num' : 3, 'index' : 'r1', 'flip' : False },
+                }
+            },
         }
         # 명령어셋 확인
         assert act in turnset
@@ -119,4 +299,3 @@ class poketCube( Cube ) :
 
             # 자료 변경
             self.cube[ new[ 'num' ] ].change( new[ 'index' ], data )
-

@@ -10,14 +10,14 @@ class poketCube( Cube ) :
 
     def __init__( self ) :
         self.make( 2 )
-        self.history = []
+        self.history = [ ]
         self.done = None
         self.point = None
         self.count = None
 
         # todo:랜덤한 값을 대입
 
-        self.check()
+        self.check( )
 
     def __repr__( self ) :
         """
@@ -41,27 +41,30 @@ class poketCube( Cube ) :
 
         :return:
         """
-        f1,f2,f3,f4,f5,f6 = self.cube[1].matrix,self.cube[2].matrix,self.cube[3].matrix,self.cube[4].matrix,self.cube[5].matrix,self.cube[6].matrix
+        f1, f2, f3, f4, f5, f6 = self.cube[ 1 ].matrix, self.cube[ 2 ].matrix, self.cube[ 3 ].matrix, self.cube[
+            4 ].matrix, self.cube[ 5 ].matrix, self.cube[ 6 ].matrix
 
         # 큐브 사이즈에 맞게 자동 조절
         # 단일 객체 길이 측정
-        sample = len('{}'.format(f1[0][0]))
-        nullArea = ' '*(5+sample*2)
-        stick1Area = '-'*(5+sample*2)
-        stick2Area = ' '+'-' * (17 + sample * 8)+'\n'
-        str =  '=======================================\n'
+        sample = len( '{}'.format( f1[ 0 ][ 0 ] ) )
+        nullArea = ' ' * (5 + sample * 2)
+        stick1Area = '-' * (5 + sample * 2)
+        stick2Area = ' ' + '-' * (17 + sample * 8) + '\n'
+        str = '=======================================\n'
         str += '  포켓 큐브 게임 2*2*2\n\n'
-        str += '{}{}    완료 여부 : {done}\n'.format(nullArea,stick1Area,done=self.done)
-        str += '{}| {} {} |    점수      : {point}\n'.format(nullArea,f2[0][0],f2[0][1],point=self.point)
-        str += '{}| {} {} |    회전횟수  : {count}\n'.format(nullArea,f2[1][0],f2[1][1],count=self.count)
+        str += '{}{}    완료 여부 : {done}\n'.format( nullArea, stick1Area, done=self.done )
+        str += '{}| {} {} |    점수      : {point}\n'.format( nullArea, f2[ 0 ][ 0 ], f2[ 0 ][ 1 ], point=self.point )
+        str += '{}| {} {} |    회전횟수  : {count}\n'.format( nullArea, f2[ 1 ][ 0 ], f2[ 1 ][ 1 ], count=self.count )
         str += stick2Area
-        str += ' | {} {} | {} {} | {} {} | {} {} |\n'.format(f3[0][0],f3[0][1],f1[0][0],f1[0][1],f4[0][0],f4[0][1],f6[0][0],f6[0][1])
-        str += ' | {} {} | {} {} | {} {} | {} {} |\n'.format(f3[1][0],f3[1][1],f1[1][0],f1[1][1],f4[1][0],f4[1][1],f6[1][0],f6[1][1])
+        str += ' | {} {} | {} {} | {} {} | {} {} |\n'.format( f3[ 0 ][ 0 ], f3[ 0 ][ 1 ], f1[ 0 ][ 0 ], f1[ 0 ][ 1 ],
+                                                              f4[ 0 ][ 0 ], f4[ 0 ][ 1 ], f6[ 0 ][ 0 ], f6[ 0 ][ 1 ] )
+        str += ' | {} {} | {} {} | {} {} | {} {} |\n'.format( f3[ 1 ][ 0 ], f3[ 1 ][ 1 ], f1[ 1 ][ 0 ], f1[ 1 ][ 1 ],
+                                                              f4[ 1 ][ 0 ], f4[ 1 ][ 1 ], f6[ 1 ][ 0 ], f6[ 1 ][ 1 ] )
         str += stick2Area
-        str += '{}| {} {} |\n'.format(nullArea,f5[0][0],f5[0][1])
-        str += '{}| {} {} |\n'.format(nullArea,f5[1][0],f5[1][1])
-        str += '{}{}\n'.format(nullArea,stick1Area)
-        str += ' 기록 : {}\n'.format(self.history)
+        str += '{}| {} {} |\n'.format( nullArea, f5[ 0 ][ 0 ], f5[ 0 ][ 1 ] )
+        str += '{}| {} {} |\n'.format( nullArea, f5[ 1 ][ 0 ], f5[ 1 ][ 1 ] )
+        str += '{}{}\n'.format( nullArea, stick1Area )
+        str += ' 기록 : {}\n'.format( self.history )
         str += '====================================='
         return str
 
@@ -108,7 +111,7 @@ class poketCube( Cube ) :
 
         """
         turnset = {
-            'F' : {
+            'F' : {  # 완료
                 'rotate' : {
                     'num' : 1,
                     'direction' : 'r',
@@ -126,10 +129,10 @@ class poketCube( Cube ) :
                     5 : { 'num' : 3, 'index' : 'r1', 'flip' : False },
                 }
             },
-            'F`' : {
+            'F`' : {  # 완료
                 'rotate' : {
                     'num' : 1,
-                    'direction' : 'r',
+                    'direction' : 'l',
                 },
                 'old' : {
                     2 : 'c1',
@@ -138,190 +141,190 @@ class poketCube( Cube ) :
                     5 : 'c0'
                 },
                 'change' : {
-                    2 : { 'num' : 4, 'index' : 'r0', 'flip' : False },
-                    3 : { 'num' : 2, 'index' : 'c1', 'flip' : True },
-                    4 : { 'num' : 5, 'index' : 'c0', 'flip' : True },
-                    5 : { 'num' : 3, 'index' : 'r1', 'flip' : False },
+                    2 : { 'num' : 3, 'index' : 'r1', 'flip' : True },
+                    3 : { 'num' : 5, 'index' : 'c0', 'flip' : False },
+                    4 : { 'num' : 2, 'index' : 'c1', 'flip' : False },
+                    5 : { 'num' : 4, 'index' : 'r0', 'flip' : True },
                 }
             },
-            'R' : {
+            'R' : {  # 완료
                 'rotate' : {
                     'num' : 4,
                     'direction' : 'r',
                 },
                 'old' : {
-                    1 : 'c1',
+                    1 : 'r1',
                     2 : 'r1',
-                    5 : 'r0',
-                    6 : 'c0'
+                    5 : 'r1',
+                    6 : 'r0'
                 },
                 'change' : {
-                    1 : { 'num' : 4, 'index' : 'r0', 'flip' : False },
-                    2 : { 'num' : 2, 'index' : 'c1', 'flip' : True },
-                    5 : { 'num' : 5, 'index' : 'c0', 'flip' : True },
-                    6 : { 'num' : 3, 'index' : 'r1', 'flip' : False },
+                    1 : { 'num' : 2, 'index' : 'r1', 'flip' : False },
+                    2 : { 'num' : 6, 'index' : 'r0', 'flip' : True },
+                    5 : { 'num' : 1, 'index' : 'r1', 'flip' : False },
+                    6 : { 'num' : 5, 'index' : 'r1', 'flip' : True },
                 }
             },
-            'R`' : {
+            'R`' : {  # 완료
                 'rotate' : {
                     'num' : 4,
-                    'direction' : 'r',
+                    'direction' : 'l',
                 },
                 'old' : {
-                    1 : 'c1',
+                    1 : 'r1',
                     2 : 'r1',
-                    5 : 'r0',
-                    6 : 'c0'
+                    5 : 'r1',
+                    6 : 'r0'
                 },
                 'change' : {
-                    1 : { 'num' : 4, 'index' : 'r0', 'flip' : False },
-                    2 : { 'num' : 2, 'index' : 'c1', 'flip' : True },
-                    5 : { 'num' : 5, 'index' : 'c0', 'flip' : True },
-                    6 : { 'num' : 3, 'index' : 'r1', 'flip' : False },
+                    1 : { 'num' : 5, 'index' : 'r1', 'flip' : False },
+                    2 : { 'num' : 1, 'index' : 'r1', 'flip' : False },
+                    5 : { 'num' : 6, 'index' : 'r0', 'flip' : True },
+                    6 : { 'num' : 2, 'index' : 'r1', 'flip' : True },
                 }
             },
-            'U' : {
+            'U' : {  # 완료
                 'rotate' : {
                     'num' : 2,
                     'direction' : 'r',
                 },
                 'old' : {
-                    1 : 'c1',
-                    3 : 'r1',
-                    4 : 'r0',
+                    1 : 'c0',
+                    3 : 'c0',
+                    4 : 'c0',
                     6 : 'c0'
                 },
                 'change' : {
-                    1 : { 'num' : 4, 'index' : 'r0', 'flip' : False },
-                    3 : { 'num' : 2, 'index' : 'c1', 'flip' : True },
-                    4 : { 'num' : 5, 'index' : 'c0', 'flip' : True },
-                    6 : { 'num' : 3, 'index' : 'r1', 'flip' : False },
+                    1 : { 'num' : 3, 'index' : 'c0', 'flip' : False },
+                    3 : { 'num' : 6, 'index' : 'c0', 'flip' : False },
+                    4 : { 'num' : 1, 'index' : 'c0', 'flip' : False },
+                    6 : { 'num' : 4, 'index' : 'c0', 'flip' : False },
                 }
             },
-            'U`' : {
+            'U`' : {  # 완료
                 'rotate' : {
                     'num' : 2,
-                    'direction' : 'r',
+                    'direction' : 'l',
                 },
                 'old' : {
-                    1 : 'c1',
-                    3 : 'r1',
-                    4 : 'r0',
+                    1 : 'c0',
+                    3 : 'c0',
+                    4 : 'c0',
                     6 : 'c0'
                 },
                 'change' : {
-                    1 : { 'num' : 4, 'index' : 'r0', 'flip' : False },
-                    3 : { 'num' : 2, 'index' : 'c1', 'flip' : True },
-                    4 : { 'num' : 5, 'index' : 'c0', 'flip' : True },
-                    6 : { 'num' : 3, 'index' : 'r1', 'flip' : False },
+                    1 : { 'num' : 4, 'index' : 'c0', 'flip' : False },
+                    3 : { 'num' : 1, 'index' : 'c0', 'flip' : False },
+                    4 : { 'num' : 6, 'index' : 'c0', 'flip' : False },
+                    6 : { 'num' : 3, 'index' : 'c0', 'flip' : False },
                 }
             },
-            'B' : {
+            'B' : {  # 완료
                 'rotate' : {
                     'num' : 6,
                     'direction' : 'r',
                 },
                 'old' : {
-                    2 : 'c1',
-                    3 : 'r1',
-                    4 : 'r0',
-                    5 : 'c0'
+                    2 : 'c0',
+                    3 : 'r0',
+                    4 : 'r1',
+                    5 : 'c1'
                 },
                 'change' : {
-                    2 : { 'num' : 4, 'index' : 'r0', 'flip' : False },
-                    3 : { 'num' : 2, 'index' : 'c1', 'flip' : True },
-                    4 : { 'num' : 5, 'index' : 'c0', 'flip' : True },
-                    5 : { 'num' : 3, 'index' : 'r1', 'flip' : False },
+                    2 : { 'num' : 3, 'index' : 'r0', 'flip' : True },
+                    3 : { 'num' : 5, 'index' : 'c1', 'flip' : False },
+                    4 : { 'num' : 2, 'index' : 'c0', 'flip' : False },
+                    5 : { 'num' : 4, 'index' : 'r1', 'flip' : True },
                 }
             },
-            'B`' : {
+            'B`' : {  # 완료
                 'rotate' : {
                     'num' : 6,
-                    'direction' : 'r',
+                    'direction' : 'l',
                 },
                 'old' : {
-                    2 : 'c1',
-                    3 : 'r1',
-                    4 : 'r0',
-                    5 : 'c0'
+                    2 : 'c0',
+                    3 : 'r0',
+                    4 : 'r1',
+                    5 : 'c1'
                 },
                 'change' : {
-                    2 : { 'num' : 4, 'index' : 'r0', 'flip' : False },
-                    3 : { 'num' : 2, 'index' : 'c1', 'flip' : True },
-                    4 : { 'num' : 5, 'index' : 'c0', 'flip' : True },
-                    5 : { 'num' : 3, 'index' : 'r1', 'flip' : False },
+                    2 : { 'num' : 4, 'index' : 'r1', 'flip' : False },
+                    3 : { 'num' : 2, 'index' : 'c0', 'flip' : True },
+                    4 : { 'num' : 5, 'index' : 'c1', 'flip' : True },
+                    5 : { 'num' : 3, 'index' : 'r0', 'flip' : False },
                 }
             },
-            'L' : {
+            'L' : {  # 완료
                 'rotate' : {
                     'num' : 3,
                     'direction' : 'r',
                 },
                 'old' : {
-                    1 : 'c1',
-                    2 : 'r1',
+                    1 : 'r0',
+                    2 : 'r0',
                     5 : 'r0',
-                    6 : 'c0'
+                    6 : 'r1'
                 },
                 'change' : {
-                    1 : { 'num' : 4, 'index' : 'r0', 'flip' : False },
-                    2 : { 'num' : 2, 'index' : 'c1', 'flip' : True },
-                    5 : { 'num' : 5, 'index' : 'c0', 'flip' : True },
-                    6 : { 'num' : 3, 'index' : 'r1', 'flip' : False },
+                    1 : { 'num' : 5, 'index' : 'r0', 'flip' : False },
+                    2 : { 'num' : 1, 'index' : 'r0', 'flip' : False },
+                    5 : { 'num' : 6, 'index' : 'r1', 'flip' : True },
+                    6 : { 'num' : 2, 'index' : 'r0', 'flip' : True },
                 }
             },
-            'L`' : {
+            'L`' : {  # 완료
                 'rotate' : {
                     'num' : 3,
-                    'direction' : 'r',
+                    'direction' : 'l',
                 },
                 'old' : {
-                    1 : 'c1',
-                    2 : 'r1',
+                    1 : 'r0',
+                    2 : 'r0',
                     5 : 'r0',
-                    6 : 'c0'
+                    6 : 'r1'
                 },
                 'change' : {
-                    1 : { 'num' : 4, 'index' : 'r0', 'flip' : False },
-                    2 : { 'num' : 2, 'index' : 'c1', 'flip' : True },
-                    5 : { 'num' : 5, 'index' : 'c0', 'flip' : True },
-                    6 : { 'num' : 3, 'index' : 'r1', 'flip' : False },
+                    1 : { 'num' : 2, 'index' : 'r0', 'flip' : False },
+                    2 : { 'num' : 6, 'index' : 'r1', 'flip' : True },
+                    5 : { 'num' : 1, 'index' : 'r0', 'flip' : False },
+                    6 : { 'num' : 5, 'index' : 'r0', 'flip' : True },
                 }
             },
-            'D' : {
+            'D' : {  # 완료
                 'rotate' : {
                     'num' : 5,
                     'direction' : 'r',
                 },
                 'old' : {
                     1 : 'c1',
-                    3 : 'r1',
-                    4 : 'r0',
-                    6 : 'c0'
+                    3 : 'c1',
+                    4 : 'c1',
+                    6 : 'c1'
                 },
                 'change' : {
-                    1 : { 'num' : 4, 'index' : 'r0', 'flip' : False },
-                    3 : { 'num' : 2, 'index' : 'c1', 'flip' : True },
-                    4 : { 'num' : 5, 'index' : 'c0', 'flip' : True },
-                    6 : { 'num' : 3, 'index' : 'r1', 'flip' : False },
+                    1 : { 'num' : 4, 'index' : 'c1', 'flip' : False },
+                    3 : { 'num' : 1, 'index' : 'c1', 'flip' : False },
+                    4 : { 'num' : 6, 'index' : 'c1', 'flip' : False },
+                    6 : { 'num' : 3, 'index' : 'c1', 'flip' : False },
                 }
             },
-            'D`' : {
+            'D`' : {  # 완료
                 'rotate' : {
                     'num' : 5,
-                    'direction' : 'r',
+                    'direction' : 'l',
                 },
                 'old' : {
                     1 : 'c1',
-                    3 : 'r1',
-                    4 : 'r0',
-                    6 : 'c0'
+                    3 : 'c1',
+                    4 : 'c1',
+                    6 : 'c1'
                 },
                 'change' : {
-                    1 : { 'num' : 4, 'index' : 'r0', 'flip' : False },
-                    3 : { 'num' : 2, 'index' : 'c1', 'flip' : True },
-                    4 : { 'num' : 5, 'index' : 'c0', 'flip' : True },
-                    6 : { 'num' : 3, 'index' : 'r1', 'flip' : False },
+                    1 : { 'num' : 3, 'index' : 'c1', 'flip' : False },
+                    3 : { 'num' : 6, 'index' : 'c1', 'flip' : False },
+                    4 : { 'num' : 1, 'index' : 'c1', 'flip' : False },
+                    6 : { 'num' : 4, 'index' : 'c1', 'flip' : False },
                 }
             },
         }
@@ -355,6 +358,6 @@ class poketCube( Cube ) :
             self.cube[ new[ 'num' ] ].change( new[ 'index' ], data )
 
         # 회전 기록
-        self.history.append(action)
+        self.history.append( action )
         # 상태 갱신
-        self.check()
+        self.check( )

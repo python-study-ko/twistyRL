@@ -20,8 +20,7 @@ def testpoket( ) :
 
     # 회전 테스트
     poket = poketCube( )
-    # turnset = ('F', 'F`', 'R', 'R`', 'U', 'U`', 'B', 'B`', 'L', 'L`', 'D', 'D`')
-    turnset = ('F')
+    turnset = ('F', 'F`', 'R', 'R`', 'U', 'U`', 'B', 'B`', 'L', 'L`', 'D', 'D`')
 
     print( "회전 테스트" )
     for act in turnset:

@@ -128,9 +128,9 @@ class face :
         indexcode = int( index[ 1 : ] )
 
         if index[ 0 ] == "r" :
-            return self.matrix[ :, indexcode ]
+            return np.copy(self.matrix[ :, indexcode ])
         elif index[ 0 ] == "c" :
-            return self.matrix[ indexcode, : ]
+            return np.copy(self.matrix[ indexcode, : ])
 
     def change( self, index, data ) :
         """

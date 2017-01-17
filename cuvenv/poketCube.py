@@ -1,5 +1,4 @@
 # 포켓 큐브
-import numpy as np
 from .core import *
 
 

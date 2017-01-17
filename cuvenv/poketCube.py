@@ -153,7 +153,7 @@ class face :
         # 상태갱신
         self.check( )
 
-    def turn( self, Direction="r" ) :
+    def rotate( self, Direction="r" ) :
         """
         면을 오른쪽 혹은 왼쪽으로 회전한다.
         기본은 오른쪽으로 회전
@@ -165,10 +165,9 @@ class face :
         assert direc in ('r', 'l')
 
         if direc == 'r' :
-            self.matrix = np.fliplr( self.matrix )
+            self.matrix = np.rot90( self.matrix, 3 )
         elif direc == 'l' :
-            for _ in range( 3 ) :
-                self.matrix = np.fliplr( self.matrix )
+            self.matrix = np.rot90( self.matrix )
 
         # 상태 갱신
         self.check( )
@@ -217,6 +216,10 @@ class poketCube( Cube ) :
         딕셔너리에 적혀 있는대로 면을 복사해 준다
         :param faces: 키는 면의 인덱스, 값은 복사할 값이 있는 인덱스
         :return:
+
+        faces = {1:'r1', 2: 'c0}
+        dic = self.copy(faces)
+        dic == {1:<1번면의 r1 값>, 2: <2번면의 c0 값>}
         """
         dic = faces
         assert type( dic ) == type( dict( ) )
@@ -228,50 +231,92 @@ class poketCube( Cube ) :
 
     # todo: np.flip(mat,0) 와 np.fliplr(mat)을 이용하여
 
-    def action( self, act ) :
+    def action( self, action ) :
         """
         큐브를 회전시키는 메소드
         :param act: 명령어셋
         :return:
         """
-        turn = act
-        # 가능한 명령어 셋, 값은 회전하는 면의 인덱스
+        act = action
+        """
+        포켓큐브 명령어 셋
+        가능한 명령 : F,F`,R,R`,U,U`,B,B`,L,L`,D,D`
+        각 명령어에는 명령어 실행시 변경되는 정보를 딕셔너리로 담고 있다.
+
+        rotate : 명령어 실행시 회전하는 면과 회전되는 방향
+                num : 회전할 면 번호
+                direction : 회전하는 방향
+
+        old : 변경전 상태 캡쳐
+                형식 -> key: 면 번호, value: 캡쳐할 부분(바뀌는 부분)
+        change : 변경될 부분에 대한 정보
+                형식 -> key: 변경될 부분의 면, value: 변경할 부분의 면 (면 번호,변경될 부분, 자료 반전 여부/True: 변경전 자료 반전시키기)
+
+        """
         turnset = {
-            'F' : 1, 'F`' : 1, 'R' : 4, 'R`' : 4, 'U' : 2, 'U`' : 2, 'B' : 6, 'B`' : 6, 'L' : 3, 'L`' : 3, 'D' : 5,
+            'F' : {
+                'rotate' : {
+                    'num' : 1,
+                    'direction' : 'r',
+                },
+                'old' : {
+                    2 : 'c1',
+                    3 : 'r1',
+                    4 : 'r0',
+                    5 : 'c0'
+                },
+                'change' : {
+                    2 : {
+                        'num' : 4,
+                        'index' : 'r0',
+                        'flip' : False,
+                    },
+                    3 : {
+                        'num' : 2,
+                        'index' : 'c1',
+                        'flip' : True,
+                    },
+                    4 : {
+                        'num' : 5,
+                        'index' : 'c0',
+                        'flip' : True,
+                    },
+                    5 : {
+                        'num' : 3,
+                        'index' : 'r1',
+                        'flip' : False,
+                    },
+                }
+            },
+            'F`' : 1, 'R' : 4, 'R`' : 4, 'U' : 2, 'U`' : 2, 'B' : 6, 'B`' : 6, 'L' : 3, 'L`' : 3, 'D' : 5,
             'D`' : 5
         }
         # 명령어셋 확인
-        assert turn in turnset
+        assert act in turnset
 
-        if turn == 'F' :
-            # 면 회전
-            turnface = turnset[ turn ]
-            self.cube[ turnface ].turn( 'r' )
-            # 면에 값 대입
+        ## 명령어셋 호출
+        act = turnset[ act ]
+        rotate = act[ 'rotate' ]  # 회전할 면
+        old = act[ 'old' ]  # 변경될 영역
+        change = act[ 'change' ]  # 변경할 영역
 
-            pass
-        elif turn == 'F`' :
-            pass
-        elif turn == 'R' :
-            pass
-        elif turn == 'R`' :
-            pass
-        elif turn == 'U' :
-            pass
-        elif turn == 'U`' :
-            pass
-        elif turn == 'B' :
-            pass
-        elif turn == 'B`' :
-            pass
-        elif turn == 'L' :
-            pass
-        elif turn == 'L`' :
-            pass
-        elif turn == 'D' :
-            pass
-        elif turn == 'D`' :
-            pass
+        ## 면 회전
+        self.cube[ rotate[ 'num' ] ].rotate( rotate[ 'direction' ] )
 
+        ## 면 변경
+        # 면 변경을 위해 이전 면 상태 캡쳐
+        old = self.copy( old )
 
+        for oldnum in old :
+            # 변경될 자료
+            data = old[ oldnum ]
+            # 변경할 면과 위치
+            new = change[ oldnum ]
+
+            # 자료 변경전 자료를 반전 시키기
+            if new[ 'flip' ] :
+                data = np.flip( data, 0 )
+
+            # 자료 변경
+            self.cube[ new[ 'num' ] ].change( new[ 'index' ], data )
 

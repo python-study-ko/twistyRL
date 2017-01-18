@@ -65,10 +65,3 @@ if __name__ == "__main__" :
     # reset 메소드 테스트
     newface.reset( 3 )
     print( "면 초기화\n{matrix}".format( matrix=newface.matrix ) )
-
-    ## 큐브 클래스 테스트
-    # 포켓큐브 생성
-    poket = poketCube( )
-    print( "큐브 생성\n", poket.cube )
-
-    testpoket( )

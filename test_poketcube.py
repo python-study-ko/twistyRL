@@ -40,8 +40,9 @@ def testpoket( ) :
     poket = reset( poket, Q )
 
     for act in solve :
-        poket.action( act )
-        print( poket )
+        done, point, count, _ = poket.action( act )
+        print( "{}. 회전방향: {} | 완료여부: {} | 점수: {}".format( count, act, done, point ) )
+    print( poket )
 
 
 if __name__ == "__main__" :

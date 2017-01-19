@@ -44,9 +44,9 @@ def testrubiks( ) :
     rubiks = reset( rubiks, Q )
 
     for act in solve :
-        rubiks.action( act )
-        print( rubiks )
-
+        done,point,count,_=rubiks.action( act )
+        print("{}. 회전방향: {} | 완료여부: {} | 점수: {}".format(count,act,done,point))
+    print( rubiks )
 
 if __name__ == "__main__" :
     ## 테스트 코드

@@ -88,7 +88,7 @@ class poketCube( Cube ) :
     # todo: 게임 상태를 알려주는 메소드 추가하기, 해당 메소드 실행시 튜블에 완성여부,점수,개별면 상태를 담아 반환한다
     # todo: action 메소드 실행시 큐브상태를 반환하도록 변경
 
-    def action( self, action ) :
+    def rotate(self,action):
         """
         큐브를 회전시키는 메소드
         :param act: 명령어셋
@@ -357,7 +357,3 @@ class poketCube( Cube ) :
             # 자료 변경
             self.cube[ new[ 'num' ] ].change( new[ 'index' ], data )
 
-        # 회전 기록
-        self.history.append( action )
-        # 상태 갱신
-        self.check( )

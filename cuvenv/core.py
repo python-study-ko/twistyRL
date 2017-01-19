@@ -252,3 +252,26 @@ class Cube :
 
         :return:
         """
+
+    def rotate(self,action):
+        """
+        입력받은 회전방향으로 큐브를 돌린다.
+        각 큐브 게임에서 오버라이팅해서 사용하면 됨
+        :param action:
+        :return:
+        """
+        pass
+
+    def action(self,action):
+        """
+        입력받은 act를 수행한뒤 상태를 반환해준다
+        :param act: 회전 방향 기호
+        :return: (완료여부,점수,회전횟수,큐브화면)
+        """
+        self.rotate(action)
+        # 회전 기록
+        self.history.append( action )
+        # 상태 갱신
+        self.check()
+        # todo: 머신러닝에 보낼 큐브화면 개발하기
+        return (self.done,self.point,self.count,None)

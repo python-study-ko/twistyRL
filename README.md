@@ -51,13 +51,13 @@ U 명령을 수행했을 때 색의 변화 없이 90도 회전하게 되는 면�
  - 시계반향 90˚ 회전: U, D, R, L, F, B
  - 반시계반향 90˚ 회전: U\`, D\`, R\`, L\`, F\`, B\`
  - 시계반향 180˚ 회전: U2, D2, R2, L2, F2, B2
- ![](img/포켓큐브.png)
+ ![](https://raw.githubusercontent.com/python-study-ko/twistyRL/master/img/%E1%84%91%E1%85%A9%E1%84%8F%E1%85%A6%E1%86%BA%E1%84%8F%E1%85%B2%E1%84%87%E1%85%B3.png)
  
 2. 루빅스큐브:
  - 시계반향 90˚ 회전: U, D, R, L, F, B
  - 반시계반향 90˚ 회전: U\`, D\`, R\`, L\`, F\`, B\`
  - 시계반향 180˚ 회전: U2, D2, R2, L2, F2, B2
- ![](img/루빅스큐브.png)
+ ![](https://github.com/python-study-ko/twistyRL/blob/master/img/%E1%84%85%E1%85%AE%E1%84%87%E1%85%B5%E1%86%A8%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B2%E1%84%87%E1%85%B3.png?raw=true)
  
 ### 큐브 스크램블
 WCA(World Cube Association)에서는 스크램블 프로그램을 이용하도록 [규정](https://www.worldcubeassociation.org/regulations/translations/korean/#5b5)하고 있습니다.

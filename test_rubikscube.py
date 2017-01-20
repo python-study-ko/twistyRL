@@ -24,7 +24,7 @@ def testrubiks( ) :
     rubiks = rubiksCube( )
     turnset = ('F', 'F`', 'R', 'R`', 'U', 'U`', 'B', 'B`', 'L', 'L`', 'D', 'D`')
     # 180도 회전 명령어
-    double = [x+'2' for x in turnset if x[-1] != '`']
+    double = [ x + '2' for x in turnset if x[ -1 ] != '`' ]
 
     print( "회전 테스트" )
     for act in turnset :
@@ -41,7 +41,7 @@ def testrubiks( ) :
     # 실제로 퍼즐이 맞춰지는지 테스트
     print( "============\n실제 테스트\n섞어 놓은 큐브와 해답을 이용하여 제대로 맞춰지는지 검증" )
     Q = {
-        1 : [ [ 4, 6, 2 ], [ 4, 3, 2 ], [ 5, 5, 2 ] ], 2 : [ [ 3, 5, 4], [ 6, 5, 1 ], [ 5, 3, 4 ] ],
+        1 : [ [ 4, 6, 2 ], [ 4, 3, 2 ], [ 5, 5, 2 ] ], 2 : [ [ 3, 5, 4 ], [ 6, 5, 1 ], [ 5, 3, 4 ] ],
         3 : [ [ 1, 2, 6 ], [ 1, 1, 6 ], [ 2, 1, 3 ] ],
         4 : [ [ 1, 3, 6 ], [ 3, 6, 2 ], [ 1, 4, 4 ] ], 5 : [ [ 6, 4, 3 ], [ 4, 2, 2 ], [ 3, 5, 1 ] ],
         6 : [ [ 2, 3, 5 ], [ 1, 4, 5 ], [ 5, 6, 6 ] ]
@@ -52,9 +52,10 @@ def testrubiks( ) :
     rubiks = reset( rubiks, Q )
 
     for act in solve :
-        done,point,count,_=rubiks.action( act )
-        print("{}. 회전방향: {} | 완료여부: {} | 점수: {}".format(count,act,done,point))
+        done, point, count, _ = rubiks.action( act )
+        print( "{}. 회전방향: {} | 완료여부: {} | 점수: {}".format( count, act, done, point ) )
     print( rubiks )
+
 
 if __name__ == "__main__" :
     ## 테스트 코드
@@ -63,3 +64,7 @@ if __name__ == "__main__" :
     print( "큐브 생성\n", rubiks )
 
     testrubiks( )
+
+    game = rubiksCube( )
+    game.scramble()
+    print(game)

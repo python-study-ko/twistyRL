@@ -45,6 +45,7 @@ U 명령을 수행했을 때 색의 변화 없이 90도 회전하게 되는 면�
 실질적으로 공식 큐브 협회에서 규정한 명령어는 모두 사용가능합니다.
 
 **주의**: twistyRL 에서 prime 명령어의 기호는 작은따옴표(')가 아닌 back quote(\`)을 사용하고 있습니다.
+**주의**: 180도 회전 명령어는 구현 되있지만 머신러닝에서는 90도 회전 명령어만 사용하시기 바랍니다.
 
 1. 포켓큐브:
  - 시계반향 90˚ 회전: U, D, R, L, F, B
@@ -60,11 +61,14 @@ U 명령을 수행했을 때 색의 변화 없이 90도 회전하게 되는 면�
  
 ### 큐브 스크램블
 WCA(World Cube Association)에서는 스크램블 프로그램을 이용하도록 [규정](https://www.worldcubeassociation.org/regulations/translations/korean/#5b5)하고 있습니다.
+다만 이 게임에서는 아래와 같은 규칙으로 기본적인 스크램블을 수행합니다.
+1. random모듈을 이용하여 길이가 25개인 스크램블 5개를 만듭니다.
+2. 그중 한가지를 선택하여 스크램블을 수행합니다.
+스크램블은 `cube.scramble()`메소드를 참고하시면 됩니다.
+또한 스크램블 길이와 생산할 갯수는 매개변수(len,count)를 통해 변경 가능합니다.
 
-그래서 이 게임 역시 해당 로직을 이용하여 큐브를 섞습니다.
 
-[스크램블 프로그램](https://ruwix.com/puzzle-scramble-generators/rubiks-cube-scrambler/)
-: 파이썬으로 작성된 코드는 [여기](https://github.com/Morphage/scrambler)를 참고!
+[참고 - 공식 스크램블 프로그램](https://ruwix.com/puzzle-scramble-generators/rubiks-cube-scrambler/)
 
 
 ## 논의할 것들

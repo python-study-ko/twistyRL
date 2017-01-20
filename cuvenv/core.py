@@ -1,5 +1,6 @@
 import numpy as np
 from functools import wraps
+import random
 """
 큐브 게임을 위한 핵식 클래스 모음
 """
@@ -200,9 +201,22 @@ class Cube :
 
     def __init__( self ) :
         self.history = [ ]
-        self.done = None
-        self.point = None
-        self.count = None
+        self.done = None    # 큐브 완성여부
+        self.point = None   # 큐브 점수
+        self.count = None   # 큐브 회전 횟수
+        self.set = None     # 사용가능한 회전 명령어 모음
+        self.scram = None   # 사용된 스크램블
+
+    def reset(self):
+        """
+        큐브 초기화
+        :return:
+        """
+        self.history = []
+        self.scram = None
+        for i in range(1,7):
+            self.cube[i].reset(i)
+        self.check()
 
     def make( self, n ) :
         """
@@ -240,7 +254,6 @@ class Cube :
         # 회전 횟수
         self.count = len( self.history )
 
-        # todo: 메소드 완성하기
 
     def __repr__( self ) :
         """
@@ -290,13 +303,54 @@ class Cube :
         self.rotate(action)
         # 회전 기록
         self.history.append( action )
+        # todo:180되 회전 명령어대신 90도 명령어가 2번 표기 되도록 변경
         # 상태 갱신
         self.check()
         # todo: 머신러닝에 보낼 큐브화면 개발하기
         return (self.done,self.point,self.count,None)
 
-    def start(self):
+    def scramble(self,len=25,count = 5):
         """
-        스크램블로 랜덤큐브를 생성해준다
+        램덤한 5개의 스크램블을 생성한뒤 램덤으로 하나의 스크램블을 선택하여 큐브 모양을 만들어 준다.
+        :param len: 스크램블 길이
+        :param count: 생성할 스크램블 갯수
         :return:
         """
+        # 큐브 초기화
+        self.reset( )
+
+        # 임의의 스크램블 모음
+        scrambles = []
+        # 사용가능한 명령어 모음
+        set = self.set
+
+        lenth = len
+        num = count
+
+        def mix():
+            """
+            스크램블을 만든다
+            :return:
+            """
+            scramble = []
+            for _ in range(lenth):
+                # 스크램블에 임의의 명령어 추가
+                scramble.append(random.choice(set))
+            # 완성된 스크램블 순서를 뒤섞기
+            random.shuffle(scramble)
+            return scramble
+
+        for _ in range(num):
+            scrambles.append(mix())
+
+        # 스크램블 선택
+        self.scramble = random.choice(scrambles)
+
+        # 스크램블 하기
+        for r in self.scramble:
+            self.rotate(r)
+        self.check()
+        print("scramble by ",self.scramble)
+
+
+

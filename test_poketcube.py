@@ -61,3 +61,8 @@ if __name__ == "__main__" :
     print( "큐브 생성\n", poket )
 
     testpoket( )
+
+    game = poketCube( )
+    game.scramble( )
+    print( game )
+

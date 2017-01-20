@@ -13,6 +13,7 @@ class rubiksCube( Cube ) :
         self.done = None
         self.point = None
         self.count = None
+        self.set = ('F', 'F`', 'R', 'R`', 'U', 'U`', 'B', 'B`', 'L', 'L`', 'D', 'D`')
 
         # todo:랜덤한 값을 대입
 
@@ -56,8 +57,7 @@ class rubiksCube( Cube ) :
                                                                point=self.point )
         str += '{}| {} {} {} |    회전횟수  : {count}\n'.format( nullArea, f2[ 1 ][ 0 ], f2[ 1 ][ 1 ], f2[ 1 ][ 2 ],
                                                              count=self.count )
-        str += '{}| {} {} {} |    회전횟수  : {count}\n'.format( nullArea, f2[ 2 ][ 0 ], f2[ 2 ][ 1 ], f2[ 2 ][ 2 ],
-                                                             count=self.count )
+        str += '{}| {} {} {} |\n'.format( nullArea, f2[ 2 ][ 0 ], f2[ 2 ][ 1 ], f2[ 2 ][ 2 ])
         str += stick2Area
         str += ' | {} {} {} | {} {} {} | {} {} {} | {} {} {} |\n'.format( f3[ 0 ][ 0 ], f3[ 0 ][ 1 ], f3[ 0 ][ 2 ],
                                                                           f1[ 0 ][ 0 ], f1[ 0 ][ 1 ], f1[ 0 ][ 2 ],
@@ -111,7 +111,7 @@ class rubiksCube( Cube ) :
         act = action
         """
         포켓큐브 명령어 셋
-        가능한 명령 : F,F`,R,R`,U,U`,B,B`,L,L`,D,D`
+        가능한 명령 : F,F`,R,R`,U,U`,B,B`,L,L`,D,D`,F2,R2,U2,B2,L2,D2
         각 명령어에는 명령어 실행시 변경되는 정보를 딕셔너리로 담고 있다.
 
         rotate : 명령어 실행시 회전하는 면과 회전되는 방향

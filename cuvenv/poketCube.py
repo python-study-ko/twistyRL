@@ -13,6 +13,7 @@ class poketCube( Cube ) :
         self.done = None
         self.point = None
         self.count = None
+        self.set = ('F', 'F`', 'R', 'R`', 'U', 'U`', 'B', 'B`', 'L', 'L`', 'D', 'D`')
 
         # todo:랜덤한 값을 대입
 
@@ -89,7 +90,7 @@ class poketCube( Cube ) :
     # todo: action 메소드 실행시 큐브상태를 반환하도록 변경
 
     @checkDouble
-    def rotate(self,action):
+    def rotate( self, action ) :
         """
         큐브를 회전시키는 메소드
         :param act: 명령어셋
@@ -98,7 +99,7 @@ class poketCube( Cube ) :
         act = action
         """
         포켓큐브 명령어 셋
-        가능한 명령 : F,F`,R,R`,U,U`,B,B`,L,L`,D,D`
+        가능한 명령 : F,F`,R,R`,U,U`,B,B`,L,L`,D,D`,F2,R2,U2,B2,L2,D2
         각 명령어에는 명령어 실행시 변경되는 정보를 딕셔너리로 담고 있다.
 
         rotate : 명령어 실행시 회전하는 면과 회전되는 방향
@@ -357,4 +358,3 @@ class poketCube( Cube ) :
 
             # 자료 변경
             self.cube[ new[ 'num' ] ].change( new[ 'index' ], data )
-

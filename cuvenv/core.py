@@ -95,35 +95,6 @@ class face :
         왼쪽에서 r1은 [:,:1] 이것과 같은 의미와 위에처럼 표시한다.
     """
 
-    def row2col( self, row ) :
-        """
-        열을 행으로 바꿔준다.
-        ex)
-            [[1],[2],[3]] -> [1,2,3]
-        :param row:
-        :return: col
-        """
-        transrow = row
-        transcol = [ ]
-        for num in transrow :
-            transcol.append( num[ 0 ] )
-        return transcol
-
-    def col2row( self, col ) :
-        """
-        행을 열로 바꿔준다.
-        ex)
-            [1,2,3] -> [[1],[2],[3]]
-        :param col:
-        :return: row
-        """
-        transcol = col
-        transrow = [ ]
-
-        for num in transcol :
-            transrow.append( [ num ] )
-        return transrow
-
     def get( self, index ) :
         """
         해당 인덱스의 값을 넘겨준다

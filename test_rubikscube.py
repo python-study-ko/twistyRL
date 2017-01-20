@@ -23,9 +23,17 @@ def testrubiks( ) :
     # 회전 테스트
     rubiks = rubiksCube( )
     turnset = ('F', 'F`', 'R', 'R`', 'U', 'U`', 'B', 'B`', 'L', 'L`', 'D', 'D`')
+    # 180도 회전 명령어
+    double = [x+'2' for x in turnset if x[-1] != '`']
 
     print( "회전 테스트" )
     for act in turnset :
+        rubiks = reset( rubiks )
+        rubiks.action( act )
+        print( "{act} 실행:\n{cube}".format( act=act, cube=rubiks ) )
+
+    print( "180도 회전 테스트" )
+    for act in double :
         rubiks = reset( rubiks )
         rubiks.action( act )
         print( "{act} 실행:\n{cube}".format( act=act, cube=rubiks ) )

@@ -1,5 +1,5 @@
 import numpy as np
-
+from functools import wraps
 """
 큐브 게임을 위한 핵식 클래스 모음
 """
@@ -177,6 +177,22 @@ class face :
         self.check( )
 
 
+# 두번 반복 명령어 인식 데코레이터
+def checkDouble(func):
+
+    @wraps(func)
+    def wrapper(*args):
+        if args[1][-1] == '2':
+            # 명령어 끝에 2가 있을 경우 해당 명령어 2번 반복
+            act = args[1][:-1]
+            for _ in range(2):
+                func(args[0],act)
+        else:
+            func(*args)
+
+    return wrapper
+
+
 class Cube :
     """
     큐브 생성 관리에 유용한 메소드 모음
@@ -253,10 +269,13 @@ class Cube :
         :return:
         """
 
+
+    @checkDouble    # 반복명령어 처리 데코레이터
     def rotate(self,action):
         """
         입력받은 회전방향으로 큐브를 돌린다.
         각 큐브 게임에서 오버라이팅해서 사용하면 됨
+        또한 반복명령어(ex. F2, F`2)를 처리하고 싶으면 @checkDouble 데코레이터를 달아주면 된다
         :param action:
         :return:
         """
@@ -275,3 +294,9 @@ class Cube :
         self.check()
         # todo: 머신러닝에 보낼 큐브화면 개발하기
         return (self.done,self.point,self.count,None)
+
+    def start(self):
+        """
+        스크램블로 랜덤큐브를 생성해준다
+        :return:
+        """

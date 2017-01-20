@@ -1,6 +1,7 @@
 import numpy as np
 from functools import wraps
 import random
+
 """
 큐브 게임을 위한 핵식 클래스 모음
 """
@@ -108,6 +109,13 @@ class face :
         elif index[ 0 ] == "c" :
             return np.copy( self.matrix[ indexcode, : ] )
 
+    def getface( self ) :
+        """
+        n*n 행열을 1차 행열로 넘겨줍니다.
+        :return:
+        """
+        return np.reshape( self.matrix, (1, pow(self.size,2)) )
+
     def change( self, index, data ) :
         """
         입력받은 인덱스의 값을 바꿔준다
@@ -150,17 +158,16 @@ class face :
 
 
 # 두번 반복 명령어 인식 데코레이터
-def checkDouble(func):
-
-    @wraps(func)
-    def wrapper(*args):
-        if args[1][-1] == '2':
+def checkDouble( func ) :
+    @wraps( func )
+    def wrapper( *args ) :
+        if args[ 1 ][ -1 ] == '2' :
             # 명령어 끝에 2가 있을 경우 해당 명령어 2번 반복
-            act = args[1][:-1]
-            for _ in range(2):
-                func(args[0],act)
-        else:
-            func(*args)
+            act = args[ 1 ][ :-1 ]
+            for _ in range( 2 ) :
+                func( args[ 0 ], act )
+        else :
+            func( *args )
 
     return wrapper
 
@@ -172,22 +179,23 @@ class Cube :
 
     def __init__( self ) :
         self.history = [ ]
-        self.done = None    # 큐브 완성여부
-        self.point = None   # 큐브 점수
-        self.count = None   # 큐브 회전 횟수
-        self.set = None     # 사용가능한 회전 명령어 모음
-        self.scram = None   # 사용된 스크램블
+        self.done = None  # 큐브 완성여부
+        self.point = None  # 큐브 점수
+        self.count = None  # 큐브 회전 횟수
+        self.set = None  # 사용가능한 회전 명령어 모음
+        self.scram = None  # 사용된 스크램블
+        self.faces = None  # 기계학습에 활용될 면 상태 (6*9)
 
-    def reset(self):
+    def reset( self ) :
         """
         큐브 초기화
         :return:
         """
-        self.history = []
+        self.history = [ ]
         self.scram = None
-        for i in range(1,7):
-            self.cube[i].reset(i)
-        self.check()
+        for i in range( 1, 7 ) :
+            self.cube[ i ].reset( i )
+        self.check( )
 
     def make( self, n ) :
         """
@@ -225,7 +233,6 @@ class Cube :
         # 회전 횟수
         self.count = len( self.history )
 
-
     def __repr__( self ) :
         """
         아래와 같은 구조르 출력됨
@@ -253,9 +260,8 @@ class Cube :
         :return:
         """
 
-
-    @checkDouble    # 반복명령어 처리 데코레이터
-    def rotate(self,action):
+    @checkDouble  # 반복명령어 처리 데코레이터
+    def rotate( self, action ) :
         """
         입력받은 회전방향으로 큐브를 돌린다.
         각 큐브 게임에서 오버라이팅해서 사용하면 됨
@@ -265,22 +271,31 @@ class Cube :
         """
         pass
 
-    def action(self,action):
+    def action( self, action ) :
         """
         입력받은 act를 수행한뒤 상태를 반환해준다
         :param act: 회전 방향 기호
         :return: (완료여부,점수,회전횟수,큐브화면)
         """
-        self.rotate(action)
+        self.rotate( action )
         # 회전 기록
         self.history.append( action )
         # todo:180되 회전 명령어대신 90도 명령어가 2번 표기 되도록 변경
         # 상태 갱신
-        self.check()
-        # todo: 머신러닝에 보낼 큐브화면 개발하기
-        return (self.done,self.point,self.count,None)
+        self.check( )
 
-    def scramble(self,len=25,count = 5):
+        # 각면의 상태
+        faces = None
+        for i in range( 1, 7 ) :
+            face = self.cube[ i ]
+            if i == 1 :
+                faces = face.getface( )
+            else :
+                faces = np.append( faces, face.getface( ), axis=0 )
+
+        return (self.done, self.point, self.count, faces)
+
+    def scramble( self, len=25, count=5 ) :
         """
         램덤한 5개의 스크램블을 생성한뒤 램덤으로 하나의 스크램블을 선택하여 큐브 모양을 만들어 준다.
         :param len: 스크램블 길이
@@ -291,37 +306,34 @@ class Cube :
         self.reset( )
 
         # 임의의 스크램블 모음
-        scrambles = []
+        scrambles = [ ]
         # 사용가능한 명령어 모음
         set = self.set
 
         lenth = len
         num = count
 
-        def mix():
+        def mix( ) :
             """
             스크램블을 만든다
             :return:
             """
-            scramble = []
-            for _ in range(lenth):
+            scramble = [ ]
+            for _ in range( lenth ) :
                 # 스크램블에 임의의 명령어 추가
-                scramble.append(random.choice(set))
+                scramble.append( random.choice( set ) )
             # 완성된 스크램블 순서를 뒤섞기
-            random.shuffle(scramble)
+            random.shuffle( scramble )
             return scramble
 
-        for _ in range(num):
-            scrambles.append(mix())
+        for _ in range( num ) :
+            scrambles.append( mix( ) )
 
         # 스크램블 선택
-        self.scramble = random.choice(scrambles)
+        self.scramble = random.choice( scrambles )
 
         # 스크램블 하기
-        for r in self.scramble:
-            self.rotate(r)
-        self.check()
-        print("scramble by ",self.scramble)
-
-
-
+        for r in self.scramble :
+            self.rotate( r )
+        self.check( )
+        print( "scramble by ", self.scramble )

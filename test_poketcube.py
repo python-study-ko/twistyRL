@@ -64,5 +64,5 @@ if __name__ == "__main__" :
 
     game = poketCube( )
     game.scramble( )
-    print( game )
-
+    state = game.action( 'F' )
+    print( state )

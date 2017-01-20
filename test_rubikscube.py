@@ -66,5 +66,6 @@ if __name__ == "__main__" :
     testrubiks( )
 
     game = rubiksCube( )
-    game.scramble()
-    print(game)
+    game.scramble( )
+    state = game.action( 'F' )
+    print( state )

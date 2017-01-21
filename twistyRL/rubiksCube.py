@@ -12,7 +12,7 @@ class rubiksCube( Cube ) :
         self.history = [ ]
         self.done = None
         self.point = None
-        self.count = None
+        self.count = 0
         self.set = ('F', 'F`', 'R', 'R`', 'U', 'U`', 'B', 'B`', 'L', 'L`', 'D', 'D`')
 
         # todo:랜덤한 값을 대입

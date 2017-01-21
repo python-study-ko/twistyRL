@@ -181,7 +181,7 @@ class Cube :
         self.history = [ ]
         self.done = None  # 큐브 완성여부
         self.point = None  # 큐브 점수
-        self.count = None  # 큐브 회전 횟수
+        self.count = 0  # 큐브 회전 횟수
         self.set = None  # 사용가능한 회전 명령어 모음
         self.scram = None  # 사용된 스크램블
         self.faces = None  # 기계학습에 활용될 면 상태 (6*9)
@@ -226,12 +226,18 @@ class Cube :
         else :
             self.done = True
 
-        # 점수 갱신
-        points = [ self.cube[ x ].point for x in self.cube ]
-        self.point = sum( points )
-
         # 회전 횟수
         self.count = len( self.history )
+
+        # 점수 갱신
+        points = sum([ self.cube[ x ].point for x in self.cube ])
+        if self.count == 0:
+            # 게임 시작 전일 경우 점수는 0으로 한다
+            self.point = 0
+        else:
+            self.point = points + points/self.count
+
+
 
     def __repr__( self ) :
         """

@@ -179,11 +179,13 @@ class Cube :
 
     def __init__( self ) :
         self.history = [ ]
+        self.size = 0 # 큐브 크기
         self.done = None  # 큐브 완성여부
-        self.point = None  # 큐브 점수
+        self.reward = 0  # 큐브 점수
+        self.point = 0
         self.count = 0  # 큐브 회전 횟수
         self.set = None  # 사용가능한 회전 명령어 모음
-        self.scram = None  # 사용된 스크램블
+        self.scram = []  # 사용된 스크램블
         self.faces = None  # 기계학습에 활용될 면 상태 (6*9)
 
     def reset( self ) :
@@ -192,7 +194,9 @@ class Cube :
         :return:
         """
         self.history = [ ]
-        self.scram = None
+        self.point = 0
+        self.reward = 0
+        self.scram = []
         for i in range( 1, 7 ) :
             self.cube[ i ].reset( i )
         self.check( )
@@ -230,12 +234,17 @@ class Cube :
         self.count = len( self.history )
 
         # 점수 갱신
-        points = sum([ self.cube[ x ].point for x in self.cube ])
+        reward = -1
         if self.count == 0:
-            # 게임 시작 전일 경우 점수는 0으로 한다
-            self.point = 0
+            # 게임 시작 전일 경우 보상은 0으로 한다
+            self.reward = 0
+        elif True in done:
+            # 완성된 면이 존재할 경우 완성된 면의 갯수*면의 총점수 만큼 보상 부여
+            self.reward = done.count(True)*pow(self.size)
         else:
-            self.point = points + points/self.count
+            # 큐브가 미완성일경우 점수 차감
+            self.reward = -1
+
 
 
 
@@ -299,8 +308,9 @@ class Cube :
         # todo:180되 회전 명령어대신 90도 명령어가 2번 표기 되도록 변경
         # 상태 갱신
         self.check( )
+        self.point += self.reward
 
-        return (self.done, self.point, self.count, self.getcube())
+        return (self.done, self.reward, self.count, self.getcube())
 
     def scramble( self, len=25, count=5, hide =True ) :
         """

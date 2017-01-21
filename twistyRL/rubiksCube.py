@@ -8,7 +8,8 @@ class rubiksCube( Cube ) :
     """
 
     def __init__( self ) :
-        self.make( 3 )
+        self.size = 3
+        self.make( self.size )
         self.history = [ ]
         self.done = None
         self.point = None

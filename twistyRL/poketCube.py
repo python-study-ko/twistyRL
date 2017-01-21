@@ -8,7 +8,8 @@ class poketCube( Cube ) :
     """
 
     def __init__( self ) :
-        self.make( 2 )
+        self.size = 2
+        self.make( self.size )
         self.history = [ ]
         self.done = None
         self.point = None

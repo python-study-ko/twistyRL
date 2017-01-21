@@ -74,3 +74,7 @@ WCA(World Cube Association)에서는 스크램블 프로그램을 이용하도�
 ## 논의할 것들
 - 보상 문제: reward 책정에 관한 논의가 필요합니다.
 
+## changelog
+- 0.1.01 : 패키지 메타데이터 오류 수정
+- 0.1.02 : 패키지 데이터 추가
+- 0.1.03 : setup.py의 readme.md 경로 문제 수정

@@ -82,3 +82,4 @@ WCA(World Cube Association)에서는 스크램블 프로그램을 이용하도�
 - 0.1.05 : cuvenv를 twistyRL로 변경
 - 0.1.06 : readme.md -> readme.rst
 - 0.1.07 : lodng-description추가
+- 0.1.08 : 스크램블을 할때 스크램블 순서 출력 여부를 선택가능하게 변경,기본은 숨기게 함

@@ -295,11 +295,12 @@ class Cube :
 
         return (self.done, self.point, self.count, faces)
 
-    def scramble( self, len=25, count=5 ) :
+    def scramble( self, len=25, count=5, hide =True ) :
         """
         램덤한 5개의 스크램블을 생성한뒤 램덤으로 하나의 스크램블을 선택하여 큐브 모양을 만들어 준다.
         :param len: 스크램블 길이
         :param count: 생성할 스크램블 갯수
+        :param hide: 스크램블을 출력할지 여부, 출력여부와 상관없이 self.scramble에 저장은 된다.
         :return:
         """
         # 큐브 초기화
@@ -336,4 +337,6 @@ class Cube :
         for r in self.scramble :
             self.rotate( r )
         self.check( )
-        print( "scramble by ", self.scramble )
+        # 스크램블 순서를 보여준다
+        if not hide:
+            print( "scramble by ", self.scramble )

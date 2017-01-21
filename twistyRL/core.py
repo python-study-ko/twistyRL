@@ -240,7 +240,7 @@ class Cube :
             self.reward = 0
         elif True in done:
             # 완성된 면이 존재할 경우 완성된 면의 갯수*면의 총점수 만큼 보상 부여
-            self.reward = done.count(True)*pow(self.size)
+            self.reward = done.count(True)*pow(self.size,2)
         else:
             # 큐브가 미완성일경우 점수 차감
             self.reward = -1

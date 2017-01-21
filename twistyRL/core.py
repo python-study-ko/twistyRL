@@ -338,14 +338,14 @@ class Cube :
             scrambles.append( mix( ) )
 
         # 스크램블 선택
-        self.scramble = random.choice( scrambles )
+        self.scram = random.choice( scrambles )
 
         # 스크램블 하기
-        for r in self.scramble :
+        for r in self.scram :
             self.rotate( r )
         self.check( )
         # 스크램블 순서를 보여준다
         if not hide:
-            print( "scramble by ", self.scramble )
+            print( "scramble by ", self.scram )
 
         return self.getcube()

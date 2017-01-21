@@ -277,6 +277,16 @@ class Cube :
         """
         pass
 
+    def getcube(self):
+        faces = None
+        for i in range( 1, 7 ) :
+            face = self.cube[ i ]
+            if i == 1 :
+                faces = face.getface( )
+            else :
+                faces = np.append( faces, face.getface( ), axis=0 )
+        return faces
+
     def action( self, action ) :
         """
         입력받은 act를 수행한뒤 상태를 반환해준다
@@ -290,16 +300,7 @@ class Cube :
         # 상태 갱신
         self.check( )
 
-        # 각면의 상태
-        faces = None
-        for i in range( 1, 7 ) :
-            face = self.cube[ i ]
-            if i == 1 :
-                faces = face.getface( )
-            else :
-                faces = np.append( faces, face.getface( ), axis=0 )
-
-        return (self.done, self.point, self.count, faces)
+        return (self.done, self.point, self.count, self.getcube())
 
     def scramble( self, len=25, count=5, hide =True ) :
         """
@@ -346,3 +347,5 @@ class Cube :
         # 스크램블 순서를 보여준다
         if not hide:
             print( "scramble by ", self.scramble )
+
+        return self.getcube()

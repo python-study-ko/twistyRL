@@ -80,3 +80,5 @@ WCA(World Cube Association)에서는 스크램블 프로그램을 이용하도�
 - 0.1.03 : setup.py의 readme.md 경로 문제 수정
 - 0.1.04 : setup.py에서 readme.md를 setup.cfg로 분리
 - 0.1.05 : cuvenv를 twistyRL로 변경
+- 0.1.06 : readme.md -> readme.rst
+- 0.1.07 : lodng-description추가

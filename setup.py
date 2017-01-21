@@ -7,25 +7,19 @@ install_requires = [
     'numpy==1.12.0'
 ]
 
-here = path.abspath(path.dirname(__file__))
-
-with open( path.join(here,'README.md'), 'r' ) as f :
-    readme = f.read( )
 
 dependency_links = [
 ]
 
 setup(
         name='twistyRL',
-        version='0.1.03',
+        version='0.1.05',
         url='https://github.com/python-study-ko/twistyRL',
         license='MIT License',
         description='twisty cube game for ML',
-        long_description=readme,
         author='wesky93',
         author_email='wesky93@gmail.com',
-        packages=[ "cuvenv" ],
-        package_data={ 'cuvenv' : [ 'img/*', 'README.md' ] },
+        packages=[ "twistyRL" ],
         include_package_data=True,
         install_requires=install_requires,
         setup_requires=setup_requires,

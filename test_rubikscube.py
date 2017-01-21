@@ -1,4 +1,4 @@
-from cuvenv import *
+from twistyRL import *
 
 
 def testrubiks( ) :

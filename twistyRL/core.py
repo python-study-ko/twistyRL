@@ -294,7 +294,8 @@ class Cube :
                 faces = face.getface( )
             else :
                 faces = np.append( faces, face.getface( ), axis=0 )
-        return faces
+        self.faces = faces
+        return self.faces
 
     def action( self, action ) :
         """

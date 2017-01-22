@@ -15,7 +15,7 @@ class rubiksCube( Cube ) :
         self.point = None
         self.count = 0
         self.set = ('F', 'F`', 'R', 'R`', 'U', 'U`', 'B', 'B`', 'L', 'L`', 'D', 'D`')
-
+        self.faces = None
         # todo:랜덤한 값을 대입
 
         self.check( )

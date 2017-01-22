@@ -111,3 +111,4 @@ changelog
 - 0.1.09 : 보상 계산방식 변경
 - 0.1.10 : getcube 메소드 추가, scramble시 큐브상태를 return하도록 변경
 - 0.1.12 : 이전 point개념을 reward로 변경 및 총점수 추가
+- 0.1.14 : cube.faces 스태틱 메소드 추가

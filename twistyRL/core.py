@@ -313,7 +313,7 @@ class Cube :
 
         return (self.done, self.reward, self.count, self.getcube())
 
-    def scramble( self, len=25, count=5, hide =True ) :
+    def scramble( self, len=25, count=2, hide =True ) :
         """
         램덤한 5개의 스크램블을 생성한뒤 램덤으로 하나의 스크램블을 선택하여 큐브 모양을 만들어 준다.
         :param len: 스크램블 길이
@@ -345,7 +345,8 @@ class Cube :
             random.shuffle( scramble )
             return scramble
         # 완성된 면이 한면 두면 이상이 안될때까지 스크램블 반복
-        while [ self.cube[ x ].done for x in self.cube ].count(True) < 2:
+
+        while True:
             for _ in range( num ) :
                 scrambles.append( mix( ) )
 
@@ -359,5 +360,9 @@ class Cube :
             # 스크램블 순서를 보여준다
             if not hide:
                 print( "scramble by ", self.scram )
+
+            face_state = [ self.cube[ x ].done for x in self.cube ].count( True )
+            if face_state == 0:
+                break
 
         return self.getcube()

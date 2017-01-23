@@ -12,7 +12,7 @@ class poketCube( Cube ) :
         self.make( self.size )
         self.history = [ ]
         self.done = None
-        self.point = None
+        self.point = 0
         self.count = 0
         self.set = ('F', 'F`', 'R', 'R`', 'U', 'U`', 'B', 'B`', 'L', 'L`', 'D', 'D`')
         self.faces = None

@@ -16,7 +16,7 @@ dependency_links = [
 
 setup(
         name='twistyRL',
-        version='0.1.15',
+        version='0.1.16',
         url='https://github.com/python-study-ko/twistyRL',
         license='MIT License',
         description='twisty cube game for ML',

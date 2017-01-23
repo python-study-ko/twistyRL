@@ -344,19 +344,20 @@ class Cube :
             # 완성된 스크램블 순서를 뒤섞기
             random.shuffle( scramble )
             return scramble
+        # 완성된 면이 한면 두면 이상이 안될때까지 스크램블 반복
+        while [ self.cube[ x ].done for x in self.cube ].count(True) < 2:
+            for _ in range( num ) :
+                scrambles.append( mix( ) )
 
-        for _ in range( num ) :
-            scrambles.append( mix( ) )
+            # 스크램블 선택
+            self.scram = random.choice( scrambles )
 
-        # 스크램블 선택
-        self.scram = random.choice( scrambles )
-
-        # 스크램블 하기
-        for r in self.scram :
-            self.rotate( r )
-        self.check( )
-        # 스크램블 순서를 보여준다
-        if not hide:
-            print( "scramble by ", self.scram )
+            # 스크램블 하기
+            for r in self.scram :
+                self.rotate( r )
+            self.check( )
+            # 스크램블 순서를 보여준다
+            if not hide:
+                print( "scramble by ", self.scram )
 
         return self.getcube()

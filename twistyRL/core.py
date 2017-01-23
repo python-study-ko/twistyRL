@@ -233,17 +233,17 @@ class Cube :
         # 회전 횟수
         self.count = len( self.history )
 
-        # 점수 갱신
-        reward = -1
+
         if self.count == 0:
             # 게임 시작 전일 경우 보상은 0으로 한다
             self.reward = 0
         elif True in done:
-            # 완성된 면이 존재할 경우 완성된 면의 갯수*면의 총점수 만큼 보상 부여
-            self.reward = done.count(True)*pow(self.size,2)
+            # 완성된 면이 존재할 경우 완성된 면의 갯수*면의 총점수/회전횟수 만큼 보상을 줘서
+            # 많이 회전할수록 점수가 떨어지게 함 즉 단순 회전을 반복하여 고득점하는 기회를 없앰
+            self.reward = done.count(True)*pow(self.size,2)/self.count
         else:
-            # 큐브가 미완성일경우 점수 차감
-            self.reward = -1
+            # 큐브가 미완성일경우 점수 없음
+            self.reward = 0
 
 
 

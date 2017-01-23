@@ -313,11 +313,12 @@ class Cube :
 
         return (self.done, self.reward, self.count, self.getcube())
 
-    def scramble( self, len=25, count=2, hide =True ) :
+    def scramble( self, len=25, count=2,checkface=1, hide =True ) :
         """
         램덤한 5개의 스크램블을 생성한뒤 램덤으로 하나의 스크램블을 선택하여 큐브 모양을 만들어 준다.
         :param len: 스크램블 길이
         :param count: 생성할 스크램블 갯수
+        :param checkface: 스크램블이 제대로 됬는지 확인하는 기준 완성된 면이 해당값 이하일때만 통과시킨다. 저수준의 학습시 유용함
         :param hide: 스크램블을 출력할지 여부, 출력여부와 상관없이 self.scramble에 저장은 된다.
         :return:
         """
@@ -362,7 +363,7 @@ class Cube :
                 print( "scramble by ", self.scram )
 
             face_state = [ self.cube[ x ].done for x in self.cube ].count( True )
-            if face_state < 2:
+            if face_state <= checkface:
                 break
 
         return self.getcube()

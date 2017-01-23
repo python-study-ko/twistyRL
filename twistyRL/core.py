@@ -362,7 +362,7 @@ class Cube :
                 print( "scramble by ", self.scram )
 
             face_state = [ self.cube[ x ].done for x in self.cube ].count( True )
-            if face_state == 0:
+            if face_state < 2:
                 break
 
         return self.getcube()

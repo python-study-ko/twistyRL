@@ -61,7 +61,6 @@ class face :
         assert newmat.shape == self.matrix.shape
 
         self.matrix = newmat
-        self.check( )
 
     def check( self ) :
         """
@@ -114,7 +113,7 @@ class face :
         n*n 행열을 1차 행열로 넘겨줍니다.
         :return:
         """
-        return np.reshape( self.matrix, (1, pow(self.size,2)) )
+        return np.reshape( self.matrix, (1, pow( self.size, 2 )) )
 
     def change( self, index, data ) :
         """
@@ -177,16 +176,30 @@ class Cube :
     큐브 생성 관리에 유용한 메소드 모음
     """
 
+
     def __init__( self ) :
+        """
+        정적 변수는 여기에서 초기화 하구 이후 activeInit을 실행 하여 동적 변수를 생성한다.
+        """
         self.history = [ ]
-        self.size = 0 # 큐브 크기
-        self.done = None  # 큐브 완성여부
-        self.reward = 0  # 큐브 점수
+        self.size = 0  # 큐브 크기
         self.point = 0
-        self.count = 0  # 큐브 회전 횟수
         self.set = None  # 사용가능한 회전 명령어 모음
-        self.scram = []  # 사용된 스크램블
-        self.faces = None  # 기계학습에 활용될 면 상태 (6*9)
+        self.scram = [ ]  # 사용된 스크램블
+
+        # 이 클래스를 상속 받을 경우 아래와 같이 동적 변수를 초기화 시켜줘야 합니다
+        # self.activaInit()
+
+
+    def activeInit( self ) :
+        """
+        고정 메소드에 따라 동적으로 실행될 메소드 목록
+        큐브 게임을 만들때 고정 변수를 초기화 한뒤 항상 이 함수를 실행하여 각 큐브에 맞게 실행한다.
+        :return:
+        """
+        # 큐브 생성
+        self.make()
+
 
     def reset( self ) :
         """
@@ -195,57 +208,87 @@ class Cube :
         """
         self.history = [ ]
         self.point = 0
-        self.reward = 0
-        self.scram = []
+        self.scram = [ ]
         for i in range( 1, 7 ) :
             self.cube[ i ].reset( i )
-        self.check( )
 
-    def make( self, n ) :
+    def make( self ) :
         """
         큐브는 딕셔너리(ey = 면의 인덱스 번호, value = 면 인스턴스)로 구성되있다.
         면에 인덱스 번호를 부여하는 방식은 READMD.md파일의 큐브 배치도를 참고 바람.
         모든 행동은 1번 면이 가장 앞에 있는 상태를 기준으로 이뤄진다.
-        :param n: 생성할 큐브 차원
         :return:
         """
-        size = n
-
+        # self.size를 지정 하지 않았을 경우 에러 발생
+        assert self.size != 0
+        # 큐브 초기화
         self.cube = { }
+        # 큐브 생성
         for i in range( 1, 7 ) :
             # 면을 생성한다.
-            self.cube[ i ] = face( size )
+            self.cube[ i ] = face( self.size )
             # 면의 값을 초기화 시킨다 ex) 3번 면의 값은 모두 3으로 초기화
             self.cube[ i ].reset( i )
 
-    def check( self ) :
+
+    ## 여러 상태를 체크하는 동적 변수
+    @property
+    def faces(self):
+        # 머신러닝에 사용할 면 상태
+        faces = None
+        for i in range( 1, 7 ) :
+            face = self.cube[ i ]
+            if i == 1 :
+                faces = face.getface( )
+            else :
+                faces = np.append( faces, face.getface( ), axis=0 )
+        return faces
+
+    @property
+    def count( self ) :
+        # 큐브 회전 횟수
+        return len( self.history )
+
+    @property
+    def facePoint( self ) :
+        # 완성된 면에 부여할 점수
+        return pow( self.size, 2 )
+
+    @property
+    def facesDone( self ) :
+        # 면들의 완성 여부
+        return [ self.cube[ x ].done for x in self.cube ]
+
+    @property
+    def doneCount( self ) :
+        return self.facesDone.count( True )
+
+    @property
+    def lastAct( self ) :
+        # 마지막으로 실행한 명령어
+        return self.history[ -1 ] if len( self.history ) != 0 else None
+
+    @property
+    def done(self):
+        # 큐브 완성 여부 확인: 모든 면이 완성 됬을 경우 큐브가 완성 되었다고 표시한다.
+        return False if False in self.facesDone else True
+
+    @property
+    def reward(self):
         """
-        면 상태 체크 메소드, 큐브가 변경되는 시점마다 호출하여 완셩여부와 점수를 확인한다.
-        :return:
+        각 상황에 따른 보상 점수를 계산한다.
+        :return: 보상 점수
         """
-        # 큐브 완셩 여부 확인
-        done = [ self.cube[ x ].done for x in self.cube ]
-        if False in done :
-            self.done = False
-        else :
-            self.done = True
-
-        # 회전 횟수
-        self.count = len( self.history )
-
-
         if self.count == 0:
-            # 게임 시작 전일 경우 보상은 0으로 한다
-            self.reward = 0
-        elif True in done:
+            # 게임 시작 전일 경우 보상은 0
+            return 0
+        elif True in self.facesDone:
             # 완성된 면이 존재할 경우 완성된 면의 갯수*면의 총점수/회전횟수 만큼 보상을 줘서
             # 많이 회전할수록 점수가 떨어지게 함 즉 단순 회전을 반복하여 고득점하는 기회를 없앰
-            self.reward = done.count(True)*pow(self.size,2)/self.count
+            return self.facePoint*self.doneCount/self.count
         else:
-            # 큐브가 미완성일경우 점수 없음
-            self.reward = 0
-
-
+            # 미완성일 경우 점수를 주지 않는다
+            return 0
 
 
     def __repr__( self ) :
@@ -286,17 +329,6 @@ class Cube :
         """
         pass
 
-    def getcube(self):
-        faces = None
-        for i in range( 1, 7 ) :
-            face = self.cube[ i ]
-            if i == 1 :
-                faces = face.getface( )
-            else :
-                faces = np.append( faces, face.getface( ), axis=0 )
-        self.faces = faces
-        return self.faces
-
     def action( self, action ) :
         """
         입력받은 act를 수행한뒤 상태를 반환해준다
@@ -307,13 +339,11 @@ class Cube :
         # 회전 기록
         self.history.append( action )
         # todo:180되 회전 명령어대신 90도 명령어가 2번 표기 되도록 변경
-        # 상태 갱신
-        self.check( )
         self.point += self.reward
 
-        return (self.done, self.reward, self.count, self.getcube())
+        return (self.done, self.reward, self.count, self.faces)
 
-    def scramble( self, len=25, count=2,checkface=1, hide =True ) :
+    def scramble( self, len=25, count=2, checkface=1, hide=True ) :
         """
         램덤한 5개의 스크램블을 생성한뒤 램덤으로 하나의 스크램블을 선택하여 큐브 모양을 만들어 준다.
         :param len: 스크램블 길이
@@ -345,9 +375,10 @@ class Cube :
             # 완성된 스크램블 순서를 뒤섞기
             random.shuffle( scramble )
             return scramble
+
         # 완성된 면이 한면 두면 이상이 안될때까지 스크램블 반복
 
-        while True:
+        while True :
             for _ in range( num ) :
                 scrambles.append( mix( ) )
 
@@ -357,13 +388,12 @@ class Cube :
             # 스크램블 하기
             for r in self.scram :
                 self.rotate( r )
-            self.check( )
+
             # 스크램블 순서를 보여준다
-            if not hide:
+            if not hide :
                 print( "scramble by ", self.scram )
 
-            face_state = [ self.cube[ x ].done for x in self.cube ].count( True )
-            if face_state <= checkface:
+            if self.doneCount <= checkface :
                 break
 
-        return self.getcube()
+        return self.faces

@@ -8,17 +8,13 @@ class poketCube( Cube ) :
     """
 
     def __init__( self ) :
+        super( ).__init__( )
+        # 큐브 크기
         self.size = 2
-        self.make( self.size )
-        self.history = [ ]
-        self.done = None
-        self.point = 0
-        self.count = 0
+        # 큐브에 사용 가능한 명령어
         self.set = ('F', 'F`', 'R', 'R`', 'U', 'U`', 'B', 'B`', 'L', 'L`', 'D', 'D`')
-        self.faces = None
-        # todo:랜덤한 값을 대입
-
-        self.check( )
+        # 동적 변수 생성
+        self.activeInit( )
 
     def __repr__( self ) :
         """

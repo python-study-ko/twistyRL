@@ -8,17 +8,13 @@ class rubiksCube( Cube ) :
     """
 
     def __init__( self ) :
+        super( ).__init__( )
+        # 큐브 크기
         self.size = 3
-        self.make( self.size )
-        self.history = [ ]
-        self.done = None
-        self.point = 0
-        self.count = 0
+        # 사용 가능한 명령어
         self.set = ('F', 'F`', 'R', 'R`', 'U', 'U`', 'B', 'B`', 'L', 'L`', 'D', 'D`')
-        self.faces = None
-        # todo:랜덤한 값을 대입
-
-        self.check( )
+        # 동적 변수 생성
+        self.activeInit( )
 
     def __repr__( self ) :
         """
@@ -58,7 +54,7 @@ class rubiksCube( Cube ) :
                                                                point=self.point )
         str += '{}| {} {} {} |    회전횟수  : {count}\n'.format( nullArea, f2[ 1 ][ 0 ], f2[ 1 ][ 1 ], f2[ 1 ][ 2 ],
                                                              count=self.count )
-        str += '{}| {} {} {} |\n'.format( nullArea, f2[ 2 ][ 0 ], f2[ 2 ][ 1 ], f2[ 2 ][ 2 ])
+        str += '{}| {} {} {} |\n'.format( nullArea, f2[ 2 ][ 0 ], f2[ 2 ][ 1 ], f2[ 2 ][ 2 ] )
         str += stick2Area
         str += ' | {} {} {} | {} {} {} | {} {} {} | {} {} {} |\n'.format( f3[ 0 ][ 0 ], f3[ 0 ][ 1 ], f3[ 0 ][ 2 ],
                                                                           f1[ 0 ][ 0 ], f1[ 0 ][ 1 ], f1[ 0 ][ 2 ],
@@ -99,11 +95,9 @@ class rubiksCube( Cube ) :
             dic[ i ] = self.cube[ i ].get( dic[ i ] )
         return dic
 
-    # todo: 게임 상태를 알려주는 메소드 추가하기, 해당 메소드 실행시 튜블에 완성여부,점수,개별면 상태를 담아 반환한다
-    # todo: action 메소드 실행시 큐브상태를 반환하도록 변경
 
     @checkDouble
-    def rotate(self,action):
+    def rotate( self, action ) :
         """
         큐브를 회전시키는 메소드
         :param act: 명령어셋
@@ -371,6 +365,3 @@ class rubiksCube( Cube ) :
 
             # 자료 변경
             self.cube[ new[ 'num' ] ].change( new[ 'index' ], data )
-
-
-

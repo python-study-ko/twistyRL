@@ -4,7 +4,7 @@ from os import path
 setup_requires = [ ]
 
 install_requires = [
-    'numpy==1.12.0'
+    'numpy==1.22.0'
 ]
 
 here = path.abspath( path.dirname( __file__ ) )
